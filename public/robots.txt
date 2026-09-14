@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Disallow Sanity Studio
+Disallow: /studio
+
+# Sitemap
+Sitemap: https://jobbase.in/sitemap.xml
