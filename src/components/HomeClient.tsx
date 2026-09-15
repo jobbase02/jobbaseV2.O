@@ -7,6 +7,7 @@ import { Job, FilterState } from '@/types';
 import { JobCard } from './JobCard';
 import { AdSpot } from './AdSpot';
 import { JobFilter } from '@/components/JobFilter';
+import { InfiniteSlider } from './InfiniteSlider';
 import {
   Search, RefreshCw, TrendingUp, ArrowRight,
   BriefcaseBusiness, Calculator, MessageSquare, Mail, CheckCircle, Zap, Star
@@ -231,13 +232,28 @@ export function HomeClient({ initialJobs, initialFilters }: HomeClientProps) {
 
         </div>
 
-        {/* Company Logotypes Ticker Row at bottom of Hero */}
-        <div className="relative z-10 mt-14 sm:mt-12 pt-4 sm:pt-5 border-t border-[#dddbff] flex items-center justify-between sm:justify-between flex-wrap gap-2.5 sm:gap-4 text-[11px] sm:text-xs font-bold text-[#050316]/40 tracking-wider uppercase px-1 sm:px-2">
-          <span>TCS</span>
-          <span>Infosys</span>
-          <span>Wipro</span>
-          <span>Zoho</span>
-          <span>Capgemini</span>
+        {/* Company Logotypes Infinite Slider Row at bottom of Hero */}
+        <div className="relative z-10 mt-14 sm:mt-12 pt-4 sm:pt-5 border-t border-[#dddbff] text-[11px] sm:text-xs font-bold text-[#050316]/40 tracking-wider uppercase">
+          <InfiniteSlider gap={36} duration={30} durationOnHover={50}>
+            <span className="shrink-0">Google</span>
+            <span className="shrink-0">Microsoft</span>
+            <span className="shrink-0">Amazon</span>
+            <span className="shrink-0">Flipkart</span>
+            <span className="shrink-0">Adobe</span>
+            <span className="shrink-0">Atlassian</span>
+            <span className="shrink-0">Swiggy</span>
+            <span className="shrink-0">Zomato</span>
+            <span className="shrink-0">PhonePe</span>
+            <span className="shrink-0">Uber</span>
+            <span className="shrink-0">Salesforce</span>
+            <span className="shrink-0">Cisco</span>
+            <span className="shrink-0">Oracle</span>
+            <span className="shrink-0">Goldman Sachs</span>
+            <span className="shrink-0">Razorpay</span>
+            <span className="shrink-0">Intuit</span>
+            <span className="shrink-0">PayPal</span>
+            <span className="shrink-0">Freshworks</span>
+          </InfiniteSlider>
         </div>
       </section>
 
