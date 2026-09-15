@@ -31,15 +31,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch }) => {
   ];
 
   return (
-    <header className={`sticky top-0 z-40 w-full bg-white transition-all duration-200 ${scrolled ? 'border-b border-slate-200 shadow-sm' : 'border-b border-transparent'}`}>
+    <header className={`sticky top-0 z-50 w-full bg-white relative transition-all duration-200 ${scrolled ? 'border-b border-slate-200 shadow-sm' : 'border-b border-transparent'}`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-[60px] flex items-center justify-between gap-4">
 
         {/* Brand */}
         <Link href="/" className="flex items-center shrink-0 group">
-          <img 
-            src="/logo.png" 
-            alt="JobBase Logo" 
-            className="h-8 w-auto object-contain transition-transform group-hover:scale-105"
+          <img
+            src="/logo.png"
+            alt="JobBase Logo"
+            className=" h-8 md:h-24 w-auto object-contain transition-transform group-hover:scale-105"
           />
         </Link>
 
@@ -52,11 +52,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch }) => {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${
-                  isActive
-                    ? 'bg-orange-50 text-orange-700 font-semibold'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-                }`}
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-150 ${isActive
+                  ? 'bg-orange-50 text-orange-700 font-semibold'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
+                  }`}
               >
                 <Icon className={`w-4 h-4 ${isActive ? 'text-orange-600' : 'text-slate-400'}`} />
                 {item.label}
@@ -91,9 +90,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch }) => {
         </div>
       </div>
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile Menu Drawer (Floats overlaying hero section instead of pushing page down) */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-100 bg-white shadow-lg animate-in slide-in-from-top-1 duration-150">
+        <div className="absolute top-full left-0 right-0 w-full md:hidden border-b border-slate-200 bg-white shadow-xl animate-in slide-in-from-top-1 duration-150 z-50">
           <div className="p-3 space-y-1 max-w-6xl mx-auto">
             {navItems.map((item) => {
               const isActive = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href));
@@ -103,16 +102,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch }) => {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center justify-between px-4 py-3 rounded-lg transition-all ${
-                    isActive
-                      ? 'bg-orange-50 text-orange-700'
-                      : 'text-slate-700 hover:bg-slate-50'
-                  }`}
+                  className={`flex items-center justify-between px-4 py-3 rounded-lg transition-all ${isActive
+                    ? 'bg-orange-50 text-orange-700'
+                    : 'text-slate-700 hover:bg-slate-50'
+                    }`}
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-md flex items-center justify-center ${
-                      isActive ? 'bg-orange-500' : 'bg-slate-100'
-                    }`}>
+                    <div className={`w-8 h-8 rounded-md flex items-center justify-center ${isActive ? 'bg-orange-500' : 'bg-slate-100'
+                      }`}>
                       <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-slate-500'}`} />
                     </div>
                     <span className="font-semibold text-sm">{item.label}</span>

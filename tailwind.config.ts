@@ -26,7 +26,11 @@ const config: Config = {
         }
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "Inter", "Geist", "system-ui", "sans-serif"],
+        heading: ["'Instrument Serif'", "Georgia", "serif"],
+        subheading: ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        body: ["'IBM Plex Serif'", "Georgia", "serif"],
+        sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        serif: ["'Instrument Serif'", "'IBM Plex Serif'", "serif"],
       },
       boxShadow: {
         subtle: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",

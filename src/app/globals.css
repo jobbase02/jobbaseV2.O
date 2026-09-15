@@ -1,14 +1,55 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('/Instrument_Serif/InstrumentSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Instrument Serif';
+  src: url('/Instrument_Serif/InstrumentSerif-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'IBM Plex Serif';
+  src: url('/IBM_Plex_Serif/IBMPlexSerif-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IBM Plex Serif';
+  src: url('/IBM_Plex_Serif/IBMPlexSerif-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IBM Plex Serif';
+  src: url('/IBM_Plex_Serif/IBMPlexSerif-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IBM Plex Serif';
+  src: url('/IBM_Plex_Serif/IBMPlexSerif-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --primary: #F97316; /* Tailwind orange-500 */
-  --primary-hover: #EA580C; /* Tailwind orange-600 */
-  --accent: #0284C7; /* Tailwind sky-600 */
+  --font-heading: 'Instrument Serif', Georgia, serif;
+  --font-subheading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'IBM Plex Serif', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --primary: #F97316;
+  --primary-hover: #EA580C;
+  --accent: #0284C7;
 }
 
 * {
@@ -16,46 +57,44 @@
 }
 
 body {
-  background-color: #FAFAFA; /* Professional off-white */
-  color: #0F172A; /* Slate 900 */
-  font-family: var(--font-sans);
+  background-color: #FAFAFA;
+  color: #050316;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }
-::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
-
-/* Hide scrollbar */
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-/* Smooth transitions */
-* { transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
-
-/* Card hover - strict and subtle */
-.card-hover {
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-}
-.card-hover:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-  border-color: rgba(249, 115, 22, 0.3);
-}
-
-/* Button press effect - minimal */
-.btn-press:active {
-  transform: scale(0.98);
-}
-
 /* Base Headings - Strict typography */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
+h1, h2 {
+  font-family: var(--font-heading);
+  font-weight: 400;
   letter-spacing: -0.015em;
-  color: #0F172A;
+}
+
+h3, h4, h5, h6 {
+  font-family: var(--font-subheading);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+p, span, li, a {
+  font-family: var(--font-body);
+}
+
+button, input, select, textarea, label, nav, .font-sans {
+  font-family: var(--font-subheading);
+}
+
+.font-heading {
+  font-family: var(--font-heading) !important;
+}
+
+.font-subheading {
+  font-family: var(--font-subheading) !important;
+}
+
+.font-body {
+  font-family: var(--font-body) !important;
 }
 
 /* Fade in animation */
