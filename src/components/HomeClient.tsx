@@ -167,7 +167,7 @@ export function HomeClient({ initialJobs, initialFilters }: HomeClientProps) {
               </div>
             </form>
 
-            <p className="text-xs sm:text-sm text-[#050316]/80 font-medium flex flex-wrap items-center gap-1.5 sm:gap-2 pl-1 sm:pl-2">
+            <p className="text-xs sm:text-sm text-[#050316]/70 font-medium flex flex-wrap items-center gap-1.5 sm:gap-3 pl-1 sm:pl-2">
               <span className='font-subheading'>No signup needed</span>
               <span className="text-[#dddbff]">•</span>
               <span className='font-subheading'>Fresh listings daily</span>
@@ -183,7 +183,7 @@ export function HomeClient({ initialJobs, initialFilters }: HomeClientProps) {
               {/* Floating Card 1 (Top Left) */}
               <div className="absolute top-[-10%] sm:top-[-7%] left-1 sm:left-10 z-10 bg-white rounded-2xl p-3 sm:p-3.5 pr-10 sm:pr-10 shadow-md border border-[#FAF4F2] max-w-[180px] sm:max-w-[210px]">
                 <span className="text-sm sm:text-[16px] font-light text-[#050316]/50 block">Software engineer</span>
-                <span className="text-sm sm:text-md font-medium text-[#050316] block mt-0.5">TCS · Bengaluru</span>
+                <span className="text-sm sm:text-md font-normal text-[#050316] block mt-0.5">TCS · Bengaluru</span>
                 <span className="inline-block mt-3 px-2.5 py-0.5 sm:py-1 mt-1.5 sm:mt-2 rounded-full bg-[#EAFBE7] text-[#397b21] text-xs sm:text-xs font-normal">
                   New
                 </span>
@@ -233,7 +233,11 @@ export function HomeClient({ initialJobs, initialFilters }: HomeClientProps) {
         </div>
 
         {/* Company Logotypes Infinite Slider Row at bottom of Hero */}
-        <div className="relative z-10 mt-14 sm:mt-12 pt-4 sm:pt-5 border-t border-[#dddbff] text-[11px] sm:text-xs font-bold text-[#050316]/40 tracking-wider uppercase">
+        <div className="relative z-10 mt-14 sm:mt-12 pt-4 sm:pt-5 border-t border-[#dddbff] font-subheading text-[11px] sm:text-sm font-normal text-white tracking-wider uppercase overflow-hidden">
+          {/* Left & Right Edge Fade Gradients using brand orange #f97415 */}
+          <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-48 bg-gradient-to-r from-[#f97415] via-[#f97415]/70 to-transparent z-20 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-48 bg-gradient-to-l from-[#f97415] via-[#f97415]/70 to-transparent z-20 pointer-events-none" />
+
           <InfiniteSlider gap={36} duration={30} durationOnHover={50}>
             <span className="shrink-0">Google</span>
             <span className="shrink-0">Microsoft</span>

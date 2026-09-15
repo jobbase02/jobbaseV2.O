@@ -57,7 +57,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch }) => {
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
                   }`}
               >
-                <Icon className={`w-4 h-4 ${isActive ? 'text-orange-600' : 'text-slate-400'}`} />
+                <Icon className={`w-4 h-4 font-body ${isActive ? 'text-orange-600' : 'text-slate-400'}`} />
                 {item.label}
               </Link>
             );
