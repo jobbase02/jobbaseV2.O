@@ -54,6 +54,8 @@ export interface JobFilters {
   location?: string;
   qualification?: string;
   keywords?: string[];
+  limit?: number;
+  offset?: number;
 }
 
 /**
@@ -110,7 +112,10 @@ export async function getJobs(filters?: JobFilters): Promise<Job[]> {
     }
 
     const filter = conditions.join(' && ');
-    const query = `*[${filter}] | order(verifiedAt desc) { ${JOB_LIST_FIELDS} }`;
+    const limit = Math.min(Math.max(filters?.limit ?? 0, 0), 50);
+    const offset = Math.max(filters?.offset ?? 0, 0);
+    const slice = limit > 0 ? `[${offset}...${offset + limit}]` : '';
+    const query = `*[${filter}] | order(verifiedAt desc)${slice} { ${JOB_LIST_FIELDS} }`;
 
     const jobs = await sanityClient.fetch<Job[]>(query, params, {
       next: { revalidate: 60 }, // ISR: Serve instantly from cache, revalidate in background every 60s

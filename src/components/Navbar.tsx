@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Search, BriefcaseBusiness, Wrench, BookOpen, Menu, X, ChevronRight, Zap } from 'lucide-react';
@@ -12,11 +12,32 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch }) => {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [menuDragOffset, setMenuDragOffset] = useState(0);
+  const menuDragStart = useRef<number | null>(null);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     setMobileMenuOpen(false);
+    setMenuDragOffset(0);
   }, [pathname]);
+
+  const handleMenuPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    menuDragStart.current = event.clientY;
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+
+  const handleMenuPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (menuDragStart.current === null) return;
+    setMenuDragOffset(Math.max(0, event.clientY - menuDragStart.current));
+  };
+
+  const handleMenuPointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (menuDragStart.current === null) return;
+    const draggedDistance = event.clientY - menuDragStart.current;
+    menuDragStart.current = null;
+    setMenuDragOffset(0);
+    if (draggedDistance > 80) setMobileMenuOpen(false);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -25,21 +46,21 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch }) => {
   }, []);
 
   const navItems = [
-    { label: 'Jobs', href: '/', icon: BriefcaseBusiness },
+    { label: 'Jobs', href: '/jobs', icon: BriefcaseBusiness },
     { label: 'Tools', href: '/tools', icon: Wrench },
     { label: 'Resources', href: '/resources', icon: BookOpen },
   ];
 
   return (
     <header className={`sticky top-0 z-50 w-full bg-white relative transition-all duration-200 ${scrolled ? 'border-b border-slate-200 shadow-sm' : 'border-b border-transparent'}`}>
-      <div className="w-full px-4 sm:px-8 lg:px-12 h-[60px] flex items-center justify-between gap-4">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 h-[60px] flex items-center justify-between gap-4">
 
         {/* Brand */}
         <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center shrink-0 group cursor-pointer">
           <img
             src="/logo.png"
             alt="JobBase Logo"
-            className="h-20 md:h-24 w-auto object-contain transition-transform group-hover:scale-105"
+            className="h-14 md:h-16 w-auto object-contain transition-transform group-hover:scale-105"
           />
         </Link>
 
@@ -69,11 +90,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch }) => {
           {/* Search */}
           <button
             onClick={onOpenSearch}
-            className="flex items-center gap-2.5 h-10 px-3.5 sm:px-4 md:w-56 lg:w-64 rounded-xl border border-[#dddbff] bg-[#fbfbfe] text-slate-500 hover:text-[#050316] hover:border-[#f97415]/50 hover:bg-white transition-all text-sm font-subheading shadow-2xs"
+            className="ai-search-trigger flex items-center gap-2.5 h-10 px-3.5 sm:px-4 md:w-56 lg:w-64 rounded-xl border border-[#dddbff] bg-[#fbfbfe] text-slate-500 hover:text-[#050316] hover:border-[#f97415]/50 hover:bg-white transition-all text-sm font-subheading shadow-2xs"
             title="Search opportunities"
           >
             <Search className="w-4 h-4 text-[#f97415] shrink-0" />
-            <span className="text-xs sm:text-sm font-medium">Search jobs using AI</span>
+            <span className="hidden sm:inline text-xs sm:text-sm font-medium">Search jobs using AI</span>
+            <span className="sm:hidden text-xs font-medium">AI search</span>
           </button>
 
           {/* Mobile Menu Toggle */}
@@ -87,10 +109,30 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch }) => {
         </div>
       </div>
 
-      {/* Mobile Menu Drawer (Floats overlaying hero section instead of pushing page down) */}
-      {mobileMenuOpen && (
-        <div className="absolute top-full left-0 right-0 w-full md:hidden border-b border-slate-200 bg-white shadow-xl animate-in slide-in-from-top-1 duration-150 z-50">
-          <div className="p-3 space-y-1 w-full px-4 sm:px-8">
+      {/* Mobile menu drawer */}
+      <>
+        <button
+          type="button"
+          aria-label="Close menu"
+          onClick={() => setMobileMenuOpen(false)}
+          className={`fixed inset-0 z-40 bg-slate-950/20 backdrop-blur-[2px] transition-opacity duration-300 md:hidden ${mobileMenuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}`}
+        />
+        <aside
+          className={`fixed inset-x-0 bottom-0 z-50 max-h-[42vh] w-full overflow-y-auto rounded-t-3xl border-t border-slate-200 bg-white shadow-[0_-16px_40px_rgba(15,23,42,0.16)] ${menuDragOffset ? 'transition-none' : 'transition-transform duration-300 ease-out'} will-change-transform md:hidden ${mobileMenuOpen ? 'translate-y-0' : 'pointer-events-none translate-y-full'}`}
+          style={menuDragOffset && mobileMenuOpen ? { transform: `translateY(${menuDragOffset}px)` } : undefined}
+        >
+            <div
+              className="flex items-center justify-center border-b border-slate-100 px-4 pb-3 pt-3 touch-none"
+              onPointerDown={handleMenuPointerDown}
+              onPointerMove={handleMenuPointerMove}
+              onPointerUp={handleMenuPointerUp}
+              onPointerCancel={handleMenuPointerUp}
+              aria-label="Drag down to close menu"
+            >
+              <span className="h-1 w-12 rounded-full bg-slate-300" aria-hidden="true" />
+            </div>
+
+            <div className="space-y-1 p-3 px-4 pb-5 sm:px-8">
             {navItems.map((item) => {
               const isActive = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href));
               const Icon = item.icon;
@@ -116,18 +158,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch }) => {
               );
             })}
 
-            <div className="pt-2 pb-1">
+            <div className="pt-4 pb-1">
               <button
                 onClick={() => { setMobileMenuOpen(false); if (onOpenSearch) onOpenSearch(); }}
-                className="w-full flex items-center justify-center gap-2 h-11 rounded-lg bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold shadow-sm btn-press transition-colors"
+                className="ai-search-trigger w-full flex items-center justify-center gap-2 h-11 rounded-lg border border-[#dddbff] bg-[#fbfbfe] text-[#050316] text-sm font-semibold shadow-sm btn-press transition-colors"
               >
-                <Search className="w-4 h-4" />
-                Search Jobs
+                <Search className="w-4 h-4 text-blue-600" />
+                AI Search
               </button>
             </div>
-          </div>
-        </div>
-      )}
+
+            </div>
+        </aside>
+      </>
     </header>
   );
 };

@@ -14,9 +14,11 @@ export default async function ResourcesPage() {
   const resources = await getResources('All');
 
   return (
-    <div className="space-y-6">
-      <AdSpot type="banner" spotName="Resources Top Banner" pageName="Resources" />
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-6 sm:py-10 space-y-8 fade-in-up">
       <ResourceList resources={resources} />
+      <div className="py-4 border-t border-slate-100">
+        <AdSpot type="banner" spotName="Resources Bottom Banner" pageName="Resources" />
+      </div>
     </div>
   );
 }

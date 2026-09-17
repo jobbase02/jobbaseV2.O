@@ -1,16 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Groq from 'groq-sdk';
 import { SearchIntent } from '@/types';
-import { rateLimit, getClientIp } from '@/lib/rate-limit';
+import { enforceRateLimit } from '@/lib/rate-limit';
+import { isSameOriginRequest, readJsonBody } from '@/lib/request-security';
 
 const groq = process.env.GROQ_API_KEY
   ? new Groq({ apiKey: process.env.GROQ_API_KEY })
   : null;
 
 const MODELS = [
-  'llama-3.1-8b-instant',
   'llama-3.3-70b-versatile',
-  'llama3-8b-8192',
+  'llama-3.2-3b-preview',
+  'llama-3.2-1b-preview',
+  'llama-3.1-8b-instant',
+  'llama3-70b-8192',
+  'llama-3.1-70b-versatile',
+  'gemma-7b-it',
+  'llama3-groq-70b-8192-tool-use-preview',
+  'mixtral-8x7b-32768'
 ];
 
 const SYSTEM_PROMPT = `You are a search intent extractor for a job search platform. 
@@ -31,21 +38,21 @@ domain values: "IT/Software", "Non-IT", "Core", "Design", "Product"
 experience values: "Fresher", "1-3 YOE", "3+ YOE", "Any"`;
 
 export async function POST(req: NextRequest) {
+  if (!isSameOriginRequest(req)) return NextResponse.json({ error: 'Invalid request origin.' }, { status: 403 });
   // ─── Rate Limiting ──────────────────────────────────────────────────────────
-  const ip = getClientIp(req);
-  const rl = rateLimit(`search:${ip}`, { limit: 20, windowSeconds: 60 });
+  const rl = await enforceRateLimit(req, 'search', { limit: 20, windowSeconds: 60 });
 
   if (!rl.success) {
     return NextResponse.json(
-      { error: 'Too many search requests. Please wait.' },
-      { status: 429, headers: { 'Retry-After': String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } }
+      { error: rl.unavailable ? 'Service temporarily unavailable.' : 'Too many search requests. Please wait.' },
+      { status: rl.unavailable ? 503 : 429, headers: rl.unavailable ? undefined : { 'Retry-After': String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } }
     );
   }
 
   try {
     let body: unknown;
     try {
-      body = await req.json();
+      body = await readJsonBody(req, 16 * 1024);
     } catch {
       return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
     }

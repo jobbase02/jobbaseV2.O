@@ -1,77 +1,87 @@
-/**
- * Lightweight in-memory rate limiter for API routes.
- * Uses a sliding window approach with per-IP tracking.
- * No external dependencies needed.
- */
+import 'server-only';
 
-interface RateLimitEntry {
-  count: number;
-  resetAt: number;
-}
-
-// Global store — persists across requests in the same Node.js process
-const store = new Map<string, RateLimitEntry>();
-
-// Cleanup stale entries every 5 minutes to prevent memory leak
-setInterval(() => {
-  const now = Date.now();
-  for (const [key, entry] of store.entries()) {
-    if (entry.resetAt < now) store.delete(key);
-  }
-}, 5 * 60 * 1000);
+import { createHmac } from 'node:crypto';
+import { supabaseAdmin } from '@/lib/supabase/client';
 
 interface RateLimitConfig {
-  /** Max requests allowed in the window */
   limit: number;
-  /** Window duration in seconds */
   windowSeconds: number;
 }
 
-interface RateLimitResult {
+export interface RateLimitResult {
   success: boolean;
   remaining: number;
   resetAt: number;
+  unavailable?: boolean;
+}
+
+interface RateLimitRow {
+  success: boolean;
+  remaining: number;
+  reset_at: string;
 }
 
 /**
- * Check if a request from `identifier` (e.g. IP address) is within rate limits.
+ * Uses the client address asserted by the edge proxy. The application must not
+ * be reachable directly when TRUSTED_PROXY is enabled, otherwise forwarded-IP
+ * headers can be forged by an attacker.
  */
-export function rateLimit(
-  identifier: string,
-  config: RateLimitConfig
-): RateLimitResult {
-  const { limit, windowSeconds } = config;
-  const now = Date.now();
-  const windowMs = windowSeconds * 1000;
-  const key = identifier;
+function getTrustedClientIp(request: Request): string | null {
+  if (process.env.TRUSTED_PROXY !== 'true') return null;
 
-  const entry = store.get(key);
-
-  if (!entry || entry.resetAt < now) {
-    // New window
-    const newEntry: RateLimitEntry = { count: 1, resetAt: now + windowMs };
-    store.set(key, newEntry);
-    return { success: true, remaining: limit - 1, resetAt: newEntry.resetAt };
-  }
-
-  if (entry.count >= limit) {
-    return { success: false, remaining: 0, resetAt: entry.resetAt };
-  }
-
-  entry.count += 1;
-  return { success: true, remaining: limit - entry.count, resetAt: entry.resetAt };
-}
-
-/**
- * Get client IP from Next.js request headers.
- * Handles proxies, Vercel, Cloudflare, etc.
- */
-export function getClientIp(req: Request): string {
-  const headers = req.headers;
+  const headers = request.headers;
   return (
-    headers.get('cf-connecting-ip') ||         // Cloudflare
-    headers.get('x-real-ip') ||                 // Nginx proxy
-    headers.get('x-forwarded-for')?.split(',')[0].trim() || // Load balancer
-    '127.0.0.1'
+    headers.get('cf-connecting-ip') ||
+    headers.get('x-real-ip') ||
+    headers.get('x-forwarded-for')?.split(',')[0].trim() ||
+    null
   );
+}
+
+/**
+ * Enforces an atomic, cross-instance rate limit through the private Supabase
+ * RPC. It fails closed if the production security configuration is incomplete.
+ */
+// Local memory store for development rate limiting
+const devRateLimit = new Map<string, { count: number; resetAt: number }>();
+
+export async function enforceRateLimit(
+  request: Request,
+  scope: string,
+  config: RateLimitConfig,
+): Promise<RateLimitResult> {
+  const clientIp = getTrustedClientIp(request);
+  const secret = process.env.RATE_LIMIT_SECRET;
+
+  if (!clientIp || !secret || !supabaseAdmin) {
+    if (process.env.NODE_ENV === 'development') {
+      // Bypass rate limit in development mode to allow unrestricted testing
+      return { success: true, remaining: 999, resetAt: Date.now() + 60000 };
+    }
+    return { success: false, remaining: 0, resetAt: Date.now(), unavailable: true };
+  }
+
+  // Do not retain a raw IP address in the rate-limit table.
+  const identifier = createHmac('sha256', secret)
+    .update(`${scope}:${clientIp}`)
+    .digest('base64url');
+
+  const { data, error } = await supabaseAdmin.rpc('check_rate_limit', {
+    p_identifier: identifier,
+    p_limit: config.limit,
+    p_window_seconds: config.windowSeconds,
+  });
+
+  const row = Array.isArray(data) ? data[0] as RateLimitRow | undefined : data as RateLimitRow | null;
+  if (error || !row || typeof row.success !== 'boolean' || !row.reset_at) {
+    console.error('[rate-limit] Supabase RPC failed:', error);
+    return { success: false, remaining: 0, resetAt: Date.now(), unavailable: true };
+  }
+
+  const resetAt = new Date(row.reset_at).getTime();
+  return {
+    success: row.success,
+    remaining: Math.max(0, Number(row.remaining) || 0),
+    resetAt: Number.isFinite(resetAt) ? resetAt : Date.now(),
+  };
 }

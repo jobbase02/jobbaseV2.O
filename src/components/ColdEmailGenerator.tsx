@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Send, Copy, Check, Sparkles, Loader2, MessageSquare } from 'lucide-react';
 
 export const ColdEmailGenerator: React.FC = () => {
+  const [recipientName, setRecipientName] = useState('');
   const [role, setRole] = useState('Software Engineer (SDE-1)');
   const [company, setCompany] = useState('CRED');
   const [skills, setSkills] = useState('React, TypeScript, Next.js');
@@ -24,7 +25,7 @@ export const ColdEmailGenerator: React.FC = () => {
       const res = await fetch('/api/generate-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ role, company, skills, batch, channel }),
+        body: JSON.stringify({ recipientName, role, company, skills, batch, channel }),
       });
 
       const data = await res.json();
@@ -71,6 +72,19 @@ export const ColdEmailGenerator: React.FC = () => {
         {/* Input Form Column */}
         <form onSubmit={handleGenerate} className="space-y-4">
           
+          <div>
+            <label className="block text-xs font-bold text-neutral-700 mb-1 uppercase tracking-wider">
+              Recipient Name (Optional)
+            </label>
+            <input
+              type="text"
+              value={recipientName}
+              onChange={(e) => setRecipientName(e.target.value)}
+              placeholder="e.g. John Doe / Hiring Manager"
+              className="w-full text-xs sm:text-sm font-semibold bg-neutral-50 text-neutral-900 border border-neutral-200 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500/40 transition-all"
+            />
+          </div>
+
           <div>
             <label className="block text-xs font-bold text-neutral-700 mb-1 uppercase tracking-wider">
               Target Role Name

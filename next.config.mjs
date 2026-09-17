@@ -27,7 +27,7 @@ const nextConfig = {
         source: '/(.*)',
         headers: [
           // Prevent clickjacking
-          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          { key: 'X-Frame-Options', value: 'DENY' },
           // Prevent MIME sniffing
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           // Control referrer info
@@ -39,8 +39,23 @@ const nextConfig = {
           },
           // XSS protection for older browsers
           { key: 'X-XSS-Protection', value: '1; mode=block' },
-          // Force HTTPS (HSTS) — uncomment when on production HTTPS
-          // { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+          { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+          {
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "base-uri 'self'",
+              "object-src 'none'",
+              "frame-ancestors 'none'",
+              "form-action 'self'",
+              `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV !== 'production' ? " 'unsafe-eval'" : ""}`,
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "font-src 'self' data: https://fonts.gstatic.com",
+              "img-src 'self' data: blob: https:",
+              "connect-src 'self' https://*.supabase.co https://*.sanity.io",
+              "frame-src 'self' https://docs.google.com",
+            ].join('; '),
+          },
         ],
       },
       // Cache static assets aggressively

@@ -93,7 +93,7 @@ export function MoreAboutSection() {
               <div className="absolute left-0 top-0 bottom-0 w-10 sm:w-16 bg-gradient-to-r from-[#F7F8FA] to-transparent z-10 pointer-events-none" />
               <div className="absolute right-0 top-0 bottom-0 w-10 sm:w-16 bg-gradient-to-l from-[#F7F8FA] to-transparent z-10 pointer-events-none" />
 
-              <InfiniteSlider gap={36} duration={28} durationOnHover={45}>
+              <InfiniteSlider gap={36} duration={42} durationOnHover={60}>
                 <div className="shrink-0 flex items-center gap-2">
                   <img src="https://cdn.simpleicons.org/spotify/1DB954" alt="Spotify" className="w-5 h-5 object-contain" />
                   <span className="font-subheading text-[#1DB954]">Spotify</span>
@@ -122,7 +122,7 @@ export function MoreAboutSection() {
                   <span className="font-subheading text-black">Amazon</span>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">
-                  <img src="https://img.logo.dev/flipkart.com?token=live_6a1a28fd-6420-4492-aeb0-b297461d9de2&size=128&retina=true&format=png" alt="Flipkart" className="w-5 h-5 object-contain" />
+                  <img src="https://cdn.simpleicons.org/flipkart/2874F0" alt="Flipkart" className="w-5 h-5 object-contain" />
                   <span className="font-subheading text-[#007CD8]">Flipkart</span>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">

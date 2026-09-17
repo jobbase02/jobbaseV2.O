@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Job } from '@/types';
-import { MapPin, ArrowUpRight, Clock, GraduationCap, BadgeCheck, Zap } from 'lucide-react';
+import { MapPin, ArrowUpRight, Clock, GraduationCap } from 'lucide-react';
 
 interface JobCardProps {
   job: Job;
@@ -59,7 +59,6 @@ export const JobCard: React.FC<JobCardProps> = ({ job, featured = false }) => {
             <div className="min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="font-semibold text-sm text-slate-900 truncate">{job.company}</span>
-                <BadgeCheck className="w-4 h-4 text-sky-500 shrink-0" />
               </div>
               <div className="flex items-center gap-1.5 text-xs text-slate-500 mt-1">
                 <MapPin className="w-3.5 h-3.5 shrink-0 text-slate-400" />

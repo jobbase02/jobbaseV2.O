@@ -13,7 +13,7 @@ export function AdSpot({ className = '', type = 'sidebar', spotName = 'Unknown',
   
   // Calculate heights based on type for some variety, but keeping the same styling language
   let sizingClass = 'min-h-[220px]';
-  if (type === 'banner') sizingClass = 'min-h-[140px] flex-row sm:flex-col';
+  if (type === 'banner') sizingClass = 'h-[250px] w-[300px] max-w-full mx-auto sm:h-auto sm:w-full sm:max-w-none sm:min-h-[140px] flex-row sm:flex-col';
 
   const targetUrl = `/contact?reason=ad&adspot=${encodeURIComponent(spotName)}&page=${encodeURIComponent(pageName)}`;
 

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getResources } from '@/lib/supabase/client';
-import { rateLimit, getClientIp } from '@/lib/rate-limit';
+import { enforceRateLimit } from '@/lib/rate-limit';
 
 const ALLOWED_CATEGORIES = new Set([
   'All', 'Interview Roadmaps', 'PDF Cheatsheets', 'Resume Templates',
@@ -8,13 +8,12 @@ const ALLOWED_CATEGORIES = new Set([
 
 export async function GET(req: NextRequest) {
   // ─── Rate Limiting ──────────────────────────────────────────────────────────
-  const ip = getClientIp(req);
-  const rl = rateLimit(`resources:${ip}`, { limit: 30, windowSeconds: 60 });
+  const rl = await enforceRateLimit(req, 'resources', { limit: 30, windowSeconds: 60 });
 
   if (!rl.success) {
     return NextResponse.json(
-      { error: 'Too many requests. Please slow down.' },
-      { status: 429, headers: { 'Retry-After': String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } }
+      { error: rl.unavailable ? 'Service temporarily unavailable.' : 'Too many requests. Please slow down.' },
+      { status: rl.unavailable ? 503 : 429, headers: rl.unavailable ? undefined : { 'Retry-After': String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } }
     );
   }
 

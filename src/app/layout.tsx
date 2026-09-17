@@ -61,7 +61,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Jobbase" />
         <link rel="manifest" href="/site.webmanifest" />
       </head>
-      <body className="min-h-screen flex flex-col bg-[#FAFAFA] text-slate-900 selection:bg-orange-500/20 selection:text-orange-900">
+      <body className="min-h-screen flex flex-col bg-white text-slate-900 selection:bg-blue-500/20 selection:text-blue-900">
         <Navbar onOpenSearch={() => setIsSearchOpen(true)} />
         <main className="flex-1 w-full">
           {children}

@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import { getSafeResourceUrl } from '@/lib/url-security';
 
 type ViewerMode = 'pdf-native' | 'gdocs' | 'download-only' | 'loading' | 'error';
 
@@ -80,13 +81,15 @@ export default function ResourceViewerPage() {
   }
 
   const getViewerSrc = (r: ResourceItem): string => {
+    const safeUrl = getSafeResourceUrl(r.file_url);
+    if (!safeUrl) return '';
     if (viewerMode === 'pdf-native') {
-      return r.file_url;
+      return safeUrl;
     }
     if (viewerMode === 'gdocs') {
-      return `https://docs.google.com/viewer?url=${encodeURIComponent(r.file_url)}&embedded=true`;
+      return `https://docs.google.com/viewer?url=${encodeURIComponent(safeUrl)}&embedded=true`;
     }
-    return r.file_url;
+    return safeUrl;
   };
 
   if (loading) {
@@ -115,6 +118,11 @@ export default function ResourceViewerPage() {
     );
   }
 
+  const safeResourceUrl = getSafeResourceUrl(resource.file_url);
+  if (!safeResourceUrl) {
+    return <div className="flex min-h-[60vh] items-center justify-center text-sm text-slate-500">This resource URL is unavailable.</div>;
+  }
+
   return (
     <div className="space-y-5 fade-in-up">
 
@@ -130,7 +138,7 @@ export default function ResourceViewerPage() {
 
         <div className="flex items-center gap-2">
           <a
-            href={resource.file_url}
+            href={safeResourceUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 text-sm font-medium hover:border-indigo-300 hover:text-indigo-700 transition-all shadow-xs"
@@ -139,7 +147,7 @@ export default function ResourceViewerPage() {
             Open Original
           </a>
           <a
-            href={resource.file_url}
+            href={safeResourceUrl}
             download
             target="_blank"
             rel="noopener noreferrer"
@@ -221,7 +229,7 @@ export default function ResourceViewerPage() {
           </div>
           {(viewerMode === 'pdf-native' || viewerMode === 'gdocs') && (
             <a
-              href={resource.file_url}
+              href={safeResourceUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs font-medium text-slate-500 hover:text-indigo-600 transition-colors flex items-center gap-1"
@@ -247,7 +255,7 @@ export default function ResourceViewerPage() {
               </p>
             </div>
             <a
-              href={resource.file_url}
+              href={safeResourceUrl}
               download
               target="_blank"
               rel="noopener noreferrer"
@@ -289,7 +297,7 @@ export default function ResourceViewerPage() {
 
       {/* Bottom note */}
       <p className="text-xs text-slate-400 text-center">
-        Having trouble viewing? <a href={resource.file_url} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline font-medium">Open directly</a> or <a href={resource.file_url} download className="text-indigo-600 hover:underline font-medium">download the file</a>.
+        Having trouble viewing? <a href={safeResourceUrl} target="_blank" rel="noopener noreferrer" className="text-indigo-600 hover:underline font-medium">Open directly</a> or <a href={safeResourceUrl} download className="text-indigo-600 hover:underline font-medium">download the file</a>.
       </p>
 
     </div>

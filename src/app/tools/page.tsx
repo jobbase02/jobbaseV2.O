@@ -1,64 +1,46 @@
 import React from 'react';
 import Link from 'next/link';
-import { Calculator, MessageSquare, ArrowRight, Wrench, Sparkles, ShieldCheck, Zap } from 'lucide-react';
+import { Calculator, MessageSquare, ArrowRight, Wrench, Sparkles, FileSearch } from 'lucide-react';
 import { AdSpot } from '@/components/AdSpot';
 
 export const metadata = {
-  title: 'Career Utilities — CGPA Converter & Referral Builder | JobBase',
-  description: 'Professional candidate utilities: CGPA to Percentage Converter and Cold Email & LinkedIn Referral Message Generator.',
+  title: 'Career Utilities — Resume Analyzer, CGPA Converter & Outreach Builder | JobBase',
+  description: 'Professional candidate utilities: AI Resume Analyzer, CGPA Converter, and Cold Email Generator.',
 };
 
 export default function ToolsDirectoryPage() {
   const tools = [
     {
       id: 'cgpa-converter',
-      title: 'CGPA to Percentage Converter',
+      title: 'CGPA Converter',
       href: '/tools/cgpa-converter',
       icon: Calculator,
-      iconBg: 'bg-[#f97415]/10',
-      iconColor: 'text-[#f97415]',
+      bgGradient: 'bg-gradient-to-br from-amber-400 to-orange-500',
       badge: 'Academic Utility',
       description: 'Convert your CGPA score to percentage for VTU, KTU, Anna University, CBSE, and AICTE 10-point scale formulas instantly.',
     },
     {
       id: 'cold-email-generator',
-      title: 'Referral & Outreach Builder',
+      title: 'Outreach Email Generator',
       href: '/tools/cold-email-generator',
       icon: MessageSquare,
-      iconBg: 'bg-indigo-500/10',
-      iconColor: 'text-indigo-600',
+      bgGradient: 'bg-gradient-to-br from-indigo-500 to-purple-600',
       badge: 'Networking Tool',
       description: 'Generate high-converting cold email and LinkedIn DM outreach templates tailored for referrals and recruiter inquiries.',
+    },
+    {
+      id: 'resume-analyzer',
+      title: 'Resume Analyzer',
+      href: '/tools/resume-analyzer',
+      icon: FileSearch,
+      bgGradient: 'bg-gradient-to-br from-emerald-400 to-teal-600',
+      badge: 'AI Utility',
+      description: 'Upload your PDF resume for an instant AI-powered audit. Get actionable feedback and find missing keywords instantly.',
     },
   ];
 
   return (
-    <div className="w-full max-w-[90%] mx-auto py-6 sm:py-10 space-y-10 fade-in-up">
-
-      {/* Page Header */}
-      <div className="bg-[#fbfbfe] border border-[#dddbff] rounded-3xl p-6 sm:p-10 shadow-xs relative overflow-hidden">
-        {/* Ambient Glows */}
-        <div className="absolute -right-16 -top-16 w-80 h-80 bg-[#f97415]/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -left-16 -bottom-16 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="relative z-10 max-w-2xl space-y-3">
-          <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#f97415] font-avenue">
-            <Wrench className="w-4 h-4 text-[#f97415]" />
-            <span>Candidate Utilities</span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-[#050316] font-body tracking-tight leading-tight">
-            Tools to accelerate your <span className="text-[#f97415] font-avenue font-semibold">job search</span>
-          </h1>
-          <p className="text-sm sm:text-base text-slate-600 font-body leading-relaxed">
-            Free, browser-based tools built for students and job seekers. Calculate exact marks, craft recruiter cold emails, and land referrals faster.
-          </p>
-        </div>
-      </div>
-
-      {/* Top Banner Ad Spot */}
-      <div className="my-4">
-        <AdSpot type="banner" spotName="Tools Top Banner" pageName="Career Tools" />
-      </div>
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-6 sm:py-10 space-y-10 fade-in-up">
 
       {/* Tools Cards Section */}
       <div className="space-y-4">
@@ -71,32 +53,36 @@ export default function ToolsDirectoryPage() {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {tools.map((tool) => {
             const Icon = tool.icon;
             return (
               <div
                 key={tool.id}
-                className="bg-white border border-slate-200 hover:border-[#f97415]/50 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:shadow-md transition-all duration-300 group"
+                className={`relative overflow-hidden rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group ${tool.bgGradient}`}
               >
-                <div className="space-y-5">
+                {/* Decorative background shapes */}
+                <div className="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:bg-white/20 transition-colors" />
+                <div className="absolute -left-8 -bottom-8 w-24 h-24 bg-black/10 rounded-full blur-2xl pointer-events-none" />
+
+                <div className="space-y-5 relative z-10 text-white">
 
                   {/* Icon + Badge */}
                   <div className="flex items-center justify-between">
-                    <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl ${tool.iconBg} flex items-center justify-center shrink-0 border border-slate-100 group-hover:scale-105 transition-transform`}>
-                      <Icon className={`w-6 h-6 ${tool.iconColor}`} />
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-white/20 flex items-center justify-center shrink-0 border border-white/10 backdrop-blur-md group-hover:scale-105 transition-transform">
+                      <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-[#fbfbfe] text-[#050316] border border-[#dddbff] font-subheading">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold bg-black/20 text-white border border-white/10 backdrop-blur-sm">
                       {tool.badge}
                     </span>
                   </div>
 
                   {/* Title + Description */}
                   <div className="space-y-2">
-                    <h3 className="text-lg sm:text-xl font-bold text-[#050316] font-subheading group-hover:text-[#f97415] transition-colors">
+                    <h3 className="text-xl sm:text-2xl font-bold font-subheading tracking-tight leading-tight">
                       {tool.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 font-body leading-relaxed">
+                    <p className="text-sm text-white/90 font-body leading-relaxed line-clamp-3">
                       {tool.description}
                     </p>
                   </div>
@@ -104,14 +90,23 @@ export default function ToolsDirectoryPage() {
                 </div>
 
                 {/* Launch CTA */}
-                <div className="mt-8 pt-5 border-t border-slate-100">
-                  <Link
-                    href={tool.href}
-                    className="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-[#f97415] hover:bg-[#ea6305] active:bg-[#d95e09] text-white text-sm font-semibold shadow-xs hover:shadow-md transition-all btn-press font-subheading"
-                  >
-                    <span>Launch Tool</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </Link>
+                <div className="mt-8 pt-5 border-t border-white/20 relative z-10">
+                  {tool.id === 'resume-analyzer' ? (
+                    <button
+                      disabled
+                      className="w-full flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-white/50 text-slate-800 text-sm font-bold shadow-sm cursor-not-allowed opacity-80"
+                    >
+                      <span>Coming Soon</span>
+                    </button>
+                  ) : (
+                    <Link
+                      href={tool.href}
+                      className="w-full flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-white text-slate-900 text-sm font-bold shadow-sm hover:bg-slate-50 transition-all active:scale-[0.98]"
+                    >
+                      <span>Launch Tool</span>
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  )}
                 </div>
               </div>
             );
@@ -119,37 +114,9 @@ export default function ToolsDirectoryPage() {
         </div>
       </div>
 
-      {/* Feature Highlights Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-        <div className="bg-[#fbfbfe] border border-[#dddbff] rounded-2xl p-5 space-y-2">
-          <div className="w-8 h-8 rounded-lg bg-[#f97415]/10 flex items-center justify-center text-[#f97415]">
-            <ShieldCheck className="w-4 h-4" />
-          </div>
-          <h4 className="text-sm font-bold text-[#050316] font-subheading">100% Free & Private</h4>
-          <p className="text-xs text-slate-500 font-body leading-relaxed">
-            All calculations and text generation happen directly in your browser. No signups or data collection.
-          </p>
-        </div>
-
-        <div className="bg-[#fbfbfe] border border-[#dddbff] rounded-2xl p-5 space-y-2">
-          <div className="w-8 h-8 rounded-lg bg-[#f97415]/10 flex items-center justify-center text-[#f97415]">
-            <Zap className="w-4 h-4" />
-          </div>
-          <h4 className="text-sm font-bold text-[#050316] font-subheading">Official Equations</h4>
-          <p className="text-xs text-slate-500 font-body leading-relaxed">
-            Verified formulas for VTU, KTU, Anna University, CBSE 10-point scale, and GATE application portals.
-          </p>
-        </div>
-
-        <div className="bg-[#fbfbfe] border border-[#dddbff] rounded-2xl p-5 space-y-2">
-          <div className="w-8 h-8 rounded-lg bg-[#f97415]/10 flex items-center justify-center text-[#f97415]">
-            <Sparkles className="w-4 h-4" />
-          </div>
-          <h4 className="text-sm font-bold text-[#050316] font-subheading">Instant Copy & Export</h4>
-          <p className="text-xs text-slate-500 font-body leading-relaxed">
-            Copy outreach messages or export your percentage score directly for official company application forms.
-          </p>
-        </div>
+      {/* Top Banner Ad Spot Moved Below Tools */}
+      <div className="py-4">
+        <AdSpot type="banner" spotName="Tools Top Banner" pageName="Career Tools" />
       </div>
 
     </div>

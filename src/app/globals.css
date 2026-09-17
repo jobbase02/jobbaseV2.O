@@ -60,9 +60,12 @@
   --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-avenue: 'Avenue', sans-serif;
-  --primary: #F97316;
-  --primary-hover: #EA580C;
-  --accent: #0284C7;
+  --primary: #2563EB;
+  --primary-hover: #1D4ED8;
+  --accent: #06B6D4;
+  --brand-violet: #6D28D9;
+  --brand-cyan: #06B6D4;
+  --brand-yellow: #F5B800;
 }
 
 * {
@@ -70,7 +73,7 @@
 }
 
 body {
-  background-color: #FAFAFA;
+  background-color: #FFFFFF;
   color: #050316;
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -127,6 +130,11 @@ nav,
   font-family: 'Avenue', sans-serif !important;
 }
 
+.font-article,
+.font-article * {
+  font-family: Georgia, 'Times New Roman', serif !important;
+}
+
 /* Fade in animation */
 @keyframes fadeInUp {
   from {
@@ -144,10 +152,90 @@ nav,
   animation: fadeInUp 0.4s ease forwards;
 }
 
+@keyframes aiSearchShimmer {
+  0% { background-position: 140% 0; }
+  100% { background-position: -40% 0; }
+}
+
+.ai-search-trigger,
+.ai-search-input {
+  position: relative;
+  isolation: isolate;
+  border-width: 1px;
+  background-image: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgb(37 99 235 / 0.07) 38%,
+    rgb(109 40 217 / 0.12) 48%,
+    rgb(6 182 212 / 0.08) 58%,
+    transparent 76%
+  );
+  background-size: 240% 100%;
+  animation: aiSearchShimmer 7s ease-in-out infinite;
+}
+
+.ai-search-input:focus-within {
+  border-color: rgb(37 99 235 / 0.4);
+  box-shadow: 0 0 0 4px rgb(37 99 235 / 0.08), 0 8px 24px rgb(37 99 235 / 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ai-search-trigger,
+  .ai-search-input {
+    animation: none;
+  }
+}
+
 /* Graph paper background pattern */
 .bg-graph-grid {
   background-image:
     linear-gradient(to right, rgba(5, 3, 22, 0.045) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(5, 3, 22, 0.045) 1px, transparent 1px);
   background-size: 44px 44px;
+}
+
+/* Logo palette: white surfaces with restrained blue, violet, cyan, and yellow accents. */
+@layer utilities {
+  .bg-orange-50 { background-color: #EFF6FF !important; }
+  .bg-orange-50\/20 { background-color: rgb(239 246 255 / 0.2) !important; }
+  .bg-orange-500 { background-color: var(--primary) !important; }
+  .bg-orange-600 { background-color: var(--primary-hover) !important; }
+  .bg-orange-100 { background-color: #DBEAFE !important; }
+  .text-orange-500,
+  .text-orange-600,
+  .text-orange-700,
+  .text-orange-800 { color: var(--primary) !important; }
+  .border-orange-200,
+  .border-orange-300 { border-color: #BFDBFE !important; }
+  .ring-orange-500 { --tw-ring-color: var(--primary) !important; }
+  .selection\:bg-orange-500\/20::selection { background-color: rgb(37 99 235 / 0.2) !important; }
+
+  [class~="text-[#f97415]"],
+  [class~="text-[#F97415]"] { color: var(--primary) !important; }
+  [class~="bg-[#f97415]"],
+  [class~="bg-[#F97415]"] { background-color: var(--primary) !important; }
+  [class~="bg-[#f97415]/10"],
+  [class~="bg-[#F97415]/10"] { background-color: rgb(37 99 235 / 0.1) !important; }
+  [class~="bg-[#f97415]/20"],
+  [class~="bg-[#F97415]/20"] { background-color: rgb(37 99 235 / 0.2) !important; }
+  [class~="bg-[#ea6305]"],
+  [class~="bg-[#EA6305]"],
+  [class~="bg-[#ea580c]"],
+  [class~="bg-[#EA580C]"] { background-color: var(--primary-hover) !important; }
+  [class~="bg-[#d95e09]"],
+  [class~="bg-[#D95E09]"] { background-color: #1E40AF !important; }
+  [class~="hover:bg-[#ea6305]"]:hover,
+  [class~="hover:bg-[#EA6305]"]:hover,
+  [class~="hover:bg-[#ea580c]"]:hover,
+  [class~="hover:bg-[#EA580C]"]:hover { background-color: var(--primary-hover) !important; }
+  [class~="border-[#f97415]"],
+  [class~="border-[#F97415]"] { border-color: var(--primary) !important; }
+  [class~="border-[#dddbff]"] { border-color: #DCE7FF !important; }
+  [class~="bg-[#fbfbfe]"] { background-color: #FFFFFF !important; }
+  [class~="bg-[#FAFAFA]"] { background-color: #FFFFFF !important; }
+  [class~="text-[#050316]"] { color: #111827 !important; }
+  [class~="hover:text-[#f97415]"]:hover,
+  [class~="hover:text-[#F97415]"]:hover { color: var(--primary) !important; }
+  [class~="hover:border-[#f97415]/50"]:hover,
+  [class~="hover:border-[#F97415]/50"]:hover { border-color: #93C5FD !important; }
 }

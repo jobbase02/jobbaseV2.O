@@ -1,15 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getResourceBySlug } from '@/lib/supabase/client';
-import { rateLimit, getClientIp } from '@/lib/rate-limit';
+import { enforceRateLimit } from '@/lib/rate-limit';
 
 export async function GET(req: NextRequest) {
-  const ip = getClientIp(req);
-  const rl = rateLimit(`resource-slug:${ip}`, { limit: 30, windowSeconds: 60 });
+  const rl = await enforceRateLimit(req, 'resource-slug', { limit: 30, windowSeconds: 60 });
 
   if (!rl.success) {
     return NextResponse.json(
-      { error: 'Too many requests.' },
-      { status: 429, headers: { 'Retry-After': String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } }
+      { error: rl.unavailable ? 'Service temporarily unavailable.' : 'Too many requests.' },
+      { status: rl.unavailable ? 503 : 429, headers: rl.unavailable ? undefined : { 'Retry-After': String(Math.ceil((rl.resetAt - Date.now()) / 1000)) } }
     );
   }
 

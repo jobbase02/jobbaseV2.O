@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Groq from 'groq-sdk';
-import { rateLimit, getClientIp } from '@/lib/rate-limit';
+import { enforceRateLimit } from '@/lib/rate-limit';
+import { isSameOriginRequest, readJsonBody } from '@/lib/request-security';
 
 const groq = process.env.GROQ_API_KEY
   ? new Groq({ apiKey: process.env.GROQ_API_KEY })
@@ -8,9 +9,15 @@ const groq = process.env.GROQ_API_KEY
 
 // Current active Groq models (decommissioned models removed)
 const MODELS = [
+  'llama-3.3-70b-versatile',
+  'llama-3.2-3b-preview',
+  'llama-3.2-1b-preview',
   'llama-3.1-8b-instant',
-  'llama3-8b-8192',
-  'gemma2-9b-it',
+  'llama3-70b-8192',
+  'llama-3.1-70b-versatile',
+  'gemma-7b-it',
+  'llama3-groq-70b-8192-tool-use-preview',
+  'mixtral-8x7b-32768'
 ];
 
 /** Strip any HTML/script tags and limit string length */
@@ -24,16 +31,16 @@ function sanitizeInput(value: unknown, maxLen = 150): string {
 }
 
 export async function POST(req: NextRequest) {
+  if (!isSameOriginRequest(req)) return NextResponse.json({ error: 'Invalid request origin.' }, { status: 403 });
   // ─── Rate Limiting (strict — Groq has per-day quotas) ─────────────────────
-  const ip = getClientIp(req);
-  const rl = rateLimit(`email:${ip}`, { limit: 10, windowSeconds: 60 });
+  const rl = await enforceRateLimit(req, 'email', { limit: 10, windowSeconds: 60 });
 
   if (!rl.success) {
     return NextResponse.json(
-      { error: 'Too many requests. Please wait a moment before generating again.' },
+      { error: rl.unavailable ? 'Service temporarily unavailable.' : 'Too many requests. Please wait a moment before generating again.' },
       {
-        status: 429,
-        headers: { 'Retry-After': String(Math.ceil((rl.resetAt - Date.now()) / 1000)) },
+        status: rl.unavailable ? 503 : 429,
+        headers: rl.unavailable ? undefined : { 'Retry-After': String(Math.ceil((rl.resetAt - Date.now()) / 1000)) },
       }
     );
   }
@@ -41,7 +48,7 @@ export async function POST(req: NextRequest) {
   try {
     let body: unknown;
     try {
-      body = await req.json();
+      body = await readJsonBody(req, 16 * 1024);
     } catch {
       return NextResponse.json({ error: 'Invalid request body.' }, { status: 400 });
     }
@@ -50,9 +57,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid request.' }, { status: 400 });
     }
 
-    const { role, company, skills, batch, channel } = body as Record<string, unknown>;
+    const { recipientName, role, company, skills, batch, channel } = body as Record<string, unknown>;
 
     // ─── Input Validation & Sanitization ──────────────────────────────────────
+    const cleanRecipient = sanitizeInput(recipientName, 50);
     const cleanRole = sanitizeInput(role, 100);
     const cleanCompany = sanitizeInput(company, 100);
     const cleanSkills = sanitizeInput(skills, 200);
@@ -66,8 +74,8 @@ export async function POST(req: NextRequest) {
     // ─── AI Generation ────────────────────────────────────────────────────────
     if (groq) {
       const prompt = `Write a concise, professional referral outreach message for a job seeker applying to ${cleanCompany} for a ${cleanRole} position.
-Details: Skills: ${cleanSkills || 'Software Development'}, Batch: ${cleanBatch || '2024'}, Channel: ${cleanChannel}.
-Rules: Max 130 words. Professional tone. No buzzwords. Return ONLY the final message text, nothing else.`;
+Details: Skills: ${cleanSkills || 'Software Development'}, Batch: ${cleanBatch || '2024'}, Channel: ${cleanChannel}, Recipient Name: ${cleanRecipient || '[Name]'}.
+Rules: Address the message to ${cleanRecipient || '[Name]'}. Max 130 words. Professional tone. No buzzwords. Return ONLY the final message text, nothing else.`;
 
       for (const modelId of MODELS) {
         try {
@@ -91,11 +99,12 @@ Rules: Max 130 words. Professional tone. No buzzwords. Return ONLY the final mes
     }
 
     // ─── Fallback Template ────────────────────────────────────────────────────
+    const recipient = cleanRecipient || '[Name]';
     const template =
       cleanChannel === 'Email'
         ? `Subject: Application — ${cleanRole} | ${cleanBatch || '2024'} Graduate
 
-Hi [Name],
+Hi ${recipient},
 
 I hope this message finds you well. I'm a ${cleanBatch || '2024'} graduate with experience in ${cleanSkills || 'software development'} and I came across the ${cleanRole} opening at ${cleanCompany}.
 
@@ -105,7 +114,7 @@ Thank you for your time!
 
 Best regards,
 [Your Name] | [LinkedIn / Portfolio]`
-        : `Hi [Name], hope you're doing well!
+        : `Hi ${recipient}, hope you're doing well!
 
 I noticed the ${cleanRole} opening at ${cleanCompany} and wanted to reach out. I'm a ${cleanBatch || '2024'} grad skilled in ${cleanSkills || 'full-stack development'}.
 

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getJobs } from '@/lib/sanity/client';
-import { rateLimit, getClientIp } from '@/lib/rate-limit';
+import { enforceRateLimit } from '@/lib/rate-limit';
 
 // Allowed filter values — whitelist to prevent unexpected input
 const ALLOWED_OPPORTUNITY_TYPES = new Set(['All', 'Full-Time', 'Internship']);
@@ -18,16 +18,15 @@ function sanitizeEnum<T extends string>(value: string | null, allowed: Set<strin
 
 export async function GET(req: NextRequest) {
   // ─── Rate Limiting ──────────────────────────────────────────────────────────
-  const ip = getClientIp(req);
-  const rl = rateLimit(`jobs:${ip}`, { limit: 60, windowSeconds: 60 });
+  const rl = await enforceRateLimit(req, 'jobs', { limit: 60, windowSeconds: 60 });
 
   if (!rl.success) {
     return NextResponse.json(
-      { error: 'Too many requests. Please slow down.' },
+      { error: rl.unavailable ? 'Service temporarily unavailable.' : 'Too many requests. Please slow down.' },
       {
-        status: 429,
+        status: rl.unavailable ? 503 : 429,
         headers: {
-          'Retry-After': String(Math.ceil((rl.resetAt - Date.now()) / 1000)),
+          ...(rl.unavailable ? {} : { 'Retry-After': String(Math.ceil((rl.resetAt - Date.now()) / 1000)) }),
           'X-RateLimit-Limit': '60',
           'X-RateLimit-Remaining': '0',
         },
@@ -57,8 +56,24 @@ export async function GET(req: NextRequest) {
           .filter((k) => k.length > 0)
       : undefined;
 
+    const requestedLimit = Number.parseInt(searchParams.get('limit') || '12', 10);
+    const requestedOffset = Number.parseInt(searchParams.get('offset') || '0', 10);
+    const limit = Number.isFinite(requestedLimit) ? Math.min(Math.max(requestedLimit, 1), 24) : 12;
+    const offset = Number.isFinite(requestedOffset) ? Math.min(Math.max(requestedOffset, 0), 1000) : 0;
+
     // ─── Data Fetching ────────────────────────────────────────────────────────
-    const jobs = await getJobs({ opportunityType, batch, experience, domain, workMode, location, qualification, keywords });
+    const jobs = await getJobs({
+      opportunityType,
+      batch,
+      experience,
+      domain,
+      workMode,
+      location,
+      qualification,
+      keywords,
+      limit: keywords?.length ? undefined : limit + 1,
+      offset: keywords?.length ? undefined : offset,
+    });
 
     // ─── Relevance Scoring (only for keyword searches) ────────────────────────
     let result = jobs;
@@ -86,9 +101,13 @@ export async function GET(req: NextRequest) {
         .map((x) => x.job);
     }
 
+    const page = keywords?.length ? result.slice(offset, offset + limit + 1) : result;
+    const hasMore = page.length > limit;
+    const pagedResult = hasMore ? page.slice(0, limit) : page;
+
     // ─── Response with Caching Headers ───────────────────────────────────────
     return NextResponse.json(
-      { jobs: result, count: result.length },
+      { jobs: pagedResult, count: pagedResult.length, hasMore },
       {
         headers: {
           // Cache for 60 seconds at CDN/browser, serve stale for 5 min while revalidating

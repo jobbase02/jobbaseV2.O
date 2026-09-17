@@ -100,6 +100,10 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
     'product designer jobs in bangalore for 2024 class',
   ];
 
+  const seeAllHref = intent
+    ? `/search?mode=ai_search&intent=${encodeURIComponent(JSON.stringify(intent))}`
+    : '/search';
+
   if (!isOpen) return null;
 
   return (
@@ -112,7 +116,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
       <div className="relative w-full max-w-2xl bg-white border border-neutral-200 rounded-2xl shadow-2xl overflow-hidden z-10 flex flex-col max-h-[88vh]">
         
         {/* Search Input Box */}
-        <form onSubmit={handleSearchSubmit} className="relative border-b border-neutral-200 p-3.5 sm:p-4 flex items-center gap-2.5">
+        <form onSubmit={handleSearchSubmit} className="ai-search-input relative border-b border-neutral-200 p-3.5 sm:p-4 flex items-center gap-2.5">
           <Search className="w-5 h-5 text-neutral-400 shrink-0" />
           <input
             ref={inputRef}
@@ -212,6 +216,13 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
                   </Link>
                 );
               })}
+              <Link
+                href={seeAllHref}
+                onClick={onClose}
+                className="flex items-center justify-center gap-2 min-h-11 rounded-lg bg-orange-50 text-orange-700 text-sm font-semibold hover:bg-orange-100 transition-colors"
+              >
+                See all AI results <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           ) : hasSearched ? (
             <div className="py-10 text-center text-neutral-500 text-xs sm:text-sm font-medium">

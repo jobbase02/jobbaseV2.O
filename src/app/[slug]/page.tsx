@@ -3,14 +3,14 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getJobBySlug, getRecentJobs } from '@/lib/sanity/client';
 import { PortableText, PortableTextComponents } from '@portabletext/react';
-import { JobCard } from '@/components/JobCard';
 import { AdSpot } from '@/components/AdSpot';
+import { ShareButton } from '@/components/ShareButton';
+import { getSafeExternalUrl } from '@/lib/url-security';
 import {
   MapPin,
   ExternalLink,
   ArrowLeft,
   CheckCircle2,
-  BadgeCheck,
   Briefcase,
   GraduationCap,
   Clock,
@@ -24,6 +24,34 @@ export const revalidate = 0;
 
 interface JobPageProps {
   params: Promise<{ slug: string }>;
+}
+
+function RelatedOpportunity({ job }: { job: NonNullable<Awaited<ReturnType<typeof getRecentJobs>>>[number] }) {
+  const jobSlug = typeof job.slug === 'string' ? job.slug : job.slug?.current || job._id;
+  const batches = job.eligibleBatches?.join(', ') || 'Any batch';
+
+  return (
+    <Link
+      href={`/${jobSlug}`}
+      className="group flex items-center gap-3 border-b border-slate-200 py-4 last:border-b-0"
+    >
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-slate-50">
+        {job.companyLogo ? (
+          <img src={job.companyLogo} alt="" className="h-full w-full object-contain p-1.5" />
+        ) : (
+          <span className="text-xs font-bold text-slate-500">{job.company.slice(0, 2).toUpperCase()}</span>
+        )}
+      </div>
+      <div className="min-w-0">
+        <h3 className="truncate text-base font-semibold text-slate-900 transition-colors group-hover:text-blue-600">
+          {job.title}
+        </h3>
+        <p className="mt-1 truncate text-xs text-slate-500">
+          {job.location} <span className="px-1 text-slate-300">·</span> Batch {batches}
+        </p>
+      </div>
+    </Link>
+  );
 }
 
 const portableTextComponents: PortableTextComponents = {
@@ -71,12 +99,14 @@ const portableTextComponents: PortableTextComponents = {
     number: ({ children }) => <li className="text-slate-600 text-sm">{children}</li>,
   },
   marks: {
-    link: ({ value, children }) => (
-      <a href={value?.href} target="_blank" rel="noopener noreferrer"
-        className="text-orange-600 underline underline-offset-2 hover:text-orange-800 font-medium">
-        {children}
-      </a>
-    ),
+    link: ({ value, children }) => {
+      const href = getSafeExternalUrl(value?.href);
+      return href ? (
+        <a href={href} target="_blank" rel="noopener noreferrer" className="text-orange-600 underline underline-offset-2 hover:text-orange-800 font-medium">
+          {children}
+        </a>
+      ) : <span>{children}</span>;
+    },
     strong: ({ children }) => <strong className="font-semibold text-slate-900">{children}</strong>,
   },
 };
@@ -107,13 +137,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
   const displayExperience = job.experienceLevel?.toLowerCase().includes('fresh') ? 'Entry Level' : job.experienceLevel;
 
   return (
-    <div className="w-full max-w-[90%] mx-auto space-y-6 pb-24 sm:pb-10 pt-4 fade-in-up">
-
-      {/* Breadcrumb */}
-      <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-orange-600 transition-colors font-medium">
-        <ArrowLeft className="w-4 h-4" />
-        Back to Listings
-      </Link>
+    <div className="font-article w-full max-w-7xl mx-auto space-y-6 px-4 sm:px-8 lg:px-12 pb-24 sm:pb-10 pt-4 fade-in-up">
 
       {/* Desktop 2-Column Layout / Mobile 1-Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -121,29 +145,21 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
         {/* Left Column: Main Job Article */}
         <div className="lg:col-span-8 space-y-8">
 
-          <article className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+          {/* Breadcrumb & Actions (Left section only) */}
+          <div className="flex w-full items-center justify-between border-b border-slate-200 pb-4 lg:pt-[17px]">
+            <Link href="/jobs" className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-orange-600 transition-colors font-medium">
+              <ArrowLeft className="w-4 h-4" />
+              Back to Listings
+            </Link>
+            <ShareButton title={`${job.title} at ${job.company}`} />
+          </div>
 
-            {/* Top accent */}
-            <div className="h-1 bg-orange-500 w-full" />
+          <article className="space-y-10">
 
-            <div className="p-6 sm:p-8 space-y-8">
+            <div className="space-y-8">
 
               {/* Header */}
-              <header className="space-y-5">
-
-                {/* Badges row */}
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-semibold bg-sky-50 text-sky-700 border border-sky-200">
-                    {job.opportunityType || 'Full-Time'}
-                  </span>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    <BadgeCheck className="w-3.5 h-3.5" /> Verified Role
-                  </span>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-50 text-slate-500 border border-slate-200 ml-auto">
-                    <Calendar className="w-3 h-3" />
-                    {formattedDate}
-                  </span>
-                </div>
+              <header className="space-y-5 border-b border-slate-200 pb-8">
 
                 {/* Company + Logo */}
                 <div className="flex items-center gap-4">
@@ -172,9 +188,15 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                 </div>
 
                 {/* Title */}
-                <h1 className="text-2xl sm:text-3xl font-bold font-avenue leading-tight">
-                  {job.title}
-                </h1>
+                <div>
+                  <h1 className="text-2xl sm:text-3xl font-bold leading-tight">
+                    {job.title}
+                  </h1>
+                  <p className="mt-2 text-sm text-slate-500 font-medium flex items-center gap-1.5">
+                    <Calendar className="w-4 h-4 text-slate-400" />
+                    Posted: {formattedDate}
+                  </p>
+                </div>
 
                 {/* Desktop Apply CTA */}
                 <div className="hidden sm:block">
@@ -192,29 +214,29 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
               </header>
 
               {/* Key Details Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-                <div className="bg-[#fbfbfe] rounded-xl p-4 border border-[#dddbff] shadow-xs hover:border-[#f97415]/40 transition-colors">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-5 border-b border-slate-200 pb-7">
+                <div className="space-y-1">
                   <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#f97415] uppercase tracking-wide mb-1.5 font-subheading">
                     <Briefcase className="w-3.5 h-3.5 text-[#f97415]" /> Role Type
                   </div>
                   <div className="text-sm sm:text-[15px] font-bold text-[#050316] font-subheading">{job.opportunityType || 'Full-Time'}</div>
                 </div>
 
-                <div className="bg-[#fbfbfe] rounded-xl p-4 border border-[#dddbff] shadow-xs hover:border-[#f97415]/40 transition-colors">
+                <div className="space-y-1">
                   <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#f97415] uppercase tracking-wide mb-1.5 font-subheading">
                     <GraduationCap className="w-3.5 h-3.5 text-[#f97415]" /> Batch
                   </div>
                   <div className="text-sm sm:text-[15px] font-bold text-[#050316] font-subheading">{job.eligibleBatches?.join(', ') || 'Any'}</div>
                 </div>
 
-                <div className="bg-[#fbfbfe] rounded-xl p-4 border border-[#dddbff] shadow-xs hover:border-[#f97415]/40 transition-colors">
+                <div className="space-y-1">
                   <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#f97415] uppercase tracking-wide mb-1.5 font-subheading">
                     <Clock className="w-3.5 h-3.5 text-[#f97415]" /> Experience
                   </div>
                   <div className="text-sm sm:text-[15px] font-bold text-[#050316] font-subheading">{displayExperience || 'Entry Level'}</div>
                 </div>
 
-                <div className="bg-[#fbfbfe] rounded-xl p-4 border border-[#dddbff] shadow-xs hover:border-[#f97415]/40 transition-colors">
+                <div className="space-y-1">
                   <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#f97415] uppercase tracking-wide mb-1.5 font-subheading">
                     <Monitor className="w-3.5 h-3.5 text-[#f97415]" /> Work Mode
                   </div>
@@ -224,13 +246,13 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
 
               {/* Qualification row */}
               {job.qualification && job.qualification.length > 0 && (
-                <div className="p-5 bg-[#fbfbfe] border border-[#dddbff] rounded-xl shadow-xs">
+                <div className="border-b border-slate-200 pb-7">
                   <div className="text-xs font-bold text-[#f97415] uppercase tracking-wide mb-3 flex items-center gap-1.5 font-subheading">
                     <GraduationCap className="w-4 h-4 text-[#f97415]" /> Required Education
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {job.qualification.map((q: string, i: number) => (
-                      <span key={i} className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-semibold bg-white text-[#050316] border border-[#dddbff] shadow-2xs font-subheading">
+                      <span key={i} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 font-subheading">
                         {q}
                       </span>
                     ))}
@@ -240,7 +262,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
 
               {/* Key Requirements */}
               {job.keyDetails && job.keyDetails.length > 0 && (
-                <div className="p-5 bg-slate-50 border border-slate-200 rounded-lg space-y-3">
+                <div className="border-b border-slate-200 pb-7 space-y-3">
                   <h2 className="text-sm font-semibold font-body text-[#f97415]">
                     Key Requirements
                   </h2>
@@ -282,10 +304,13 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
               </div>
 
               {/* Apply CTA Footer */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-5 p-5 sm:p-6 bg-slate-900 border border-slate-800 rounded-xl shadow-sm">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-5 border-y border-slate-200 py-6">
                 <div>
-                  <div className="text-base font-semibold text-white">Ready to apply?</div>
-                  <div className="text-sm text-slate-400 mt-1">Clicking below redirects you to {job.company}'s official application portal.</div>
+                  <div className="text-base font-semibold text-slate-900">Ready to apply?</div>
+                  <div className="text-sm text-slate-500 mt-1">You will continue to {job.company}'s official application portal.</div>
+                  <Link href="/contact?reason=job_listing_report" className="mt-2 inline-block text-xs font-medium text-slate-400 underline underline-offset-2 transition-colors hover:text-blue-600">
+                    Report a misleading job posting
+                  </Link>
                 </div>
                 <a
                   href={job.applyUrl}
@@ -316,9 +341,9 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                   View all <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
                 {suggestedJobs.map((sJob) => (
-                  <JobCard key={sJob._id} job={sJob} />
+                  <RelatedOpportunity key={sJob._id} job={sJob} />
                 ))}
               </div>
             </section>
@@ -329,8 +354,8 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
         {/* Right Column: Desktop Sidebar with Related Jobs */}
         <aside className="hidden lg:block lg:col-span-4 space-y-6 sticky top-20">
           {suggestedJobs && suggestedJobs.length > 0 && (
-            <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div className="space-y-4 border-t border-slate-200 pt-4">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-3">
                 <h2 className="text-base font-bold text-slate-900">
                   Similar Opportunities
                 </h2>
@@ -338,9 +363,9 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                   View all <ChevronRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
-              <div className="space-y-3">
+              <div>
                 {suggestedJobs.map((sJob) => (
-                  <JobCard key={sJob._id} job={sJob} />
+                  <RelatedOpportunity key={sJob._id} job={sJob} />
                 ))}
               </div>
             </div>
@@ -350,22 +375,6 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
           <AdSpot type="sidebar" spotName="Job Details Sidebar" pageName="Job Details" />
         </aside>
 
-      </div>
-
-      {/* Mobile Sticky Apply Bar */}
-      <div className="fixed bottom-0 left-0 right-0 px-4 py-3 bg-white border-t border-slate-200 z-40 sm:hidden flex items-center justify-between gap-3 shadow-lg">
-        <div className="min-w-0 flex-1">
-          <div className="text-sm font-bold text-slate-900 truncate">{job.company}</div>
-          <div className="text-xs text-slate-500 truncate">{job.title}</div>
-        </div>
-        <a
-          href={job.applyUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-orange-500 text-white font-semibold text-sm shadow-sm hover:bg-orange-600 btn-press shrink-0 transition-colors"
-        >
-          Apply <ExternalLink className="w-3.5 h-3.5" />
-        </a>
       </div>
 
     </div>

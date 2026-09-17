@@ -20,9 +20,10 @@ const config: Config = {
           950: "#040405",
         },
         brand: {
-          indigo: "#4F46E5",
-          purple: "#7C3AED",
-          violet: "#8B5CF6",
+          blue: "#2563EB",
+          cyan: "#06B6D4",
+          violet: "#6D28D9",
+          yellow: "#F5B800",
         }
       },
       fontFamily: {
