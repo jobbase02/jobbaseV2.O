@@ -32,14 +32,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch }) => {
 
   return (
     <header className={`sticky top-0 z-50 w-full bg-white relative transition-all duration-200 ${scrolled ? 'border-b border-slate-200 shadow-sm' : 'border-b border-transparent'}`}>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-[60px] flex items-center justify-between gap-4">
+      <div className="w-full px-4 sm:px-8 lg:px-12 h-[60px] flex items-center justify-between gap-4">
 
         {/* Brand */}
-        <Link href="/" className="flex items-center shrink-0 group">
+        <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center shrink-0 group cursor-pointer">
           <img
             src="/logo.png"
             alt="JobBase Logo"
-            className=" h-8 md:h-24 w-auto object-contain transition-transform group-hover:scale-105"
+            className="h-20 md:h-24 w-auto object-contain transition-transform group-hover:scale-105"
           />
         </Link>
 
@@ -69,14 +69,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch }) => {
           {/* Search */}
           <button
             onClick={onOpenSearch}
-            className="flex items-center gap-2 h-9 px-3.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-500 hover:text-slate-800 hover:border-slate-300 hover:bg-white transition-all text-sm font-medium"
-            title="Search jobs (Ctrl+K)"
+            className="flex items-center gap-2.5 h-10 px-3.5 sm:px-4 md:w-56 lg:w-64 rounded-xl border border-[#dddbff] bg-[#fbfbfe] text-slate-500 hover:text-[#050316] hover:border-[#f97415]/50 hover:bg-white transition-all text-sm font-subheading shadow-2xs"
+            title="Search opportunities"
           >
-            <Search className="w-4 h-4" />
-            <span className="hidden sm:inline text-sm">Search</span>
-            <kbd className="hidden md:inline-flex items-center px-1.5 py-0.5 text-[10px] font-mono text-slate-400 bg-slate-200 rounded border border-slate-300 ml-0.5">
-              ⌘K
-            </kbd>
+            <Search className="w-4 h-4 text-[#f97415] shrink-0" />
+            <span className="text-xs sm:text-sm font-medium">Search jobs using AI</span>
           </button>
 
           {/* Mobile Menu Toggle */}
@@ -93,7 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenSearch }) => {
       {/* Mobile Menu Drawer (Floats overlaying hero section instead of pushing page down) */}
       {mobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 w-full md:hidden border-b border-slate-200 bg-white shadow-xl animate-in slide-in-from-top-1 duration-150 z-50">
-          <div className="p-3 space-y-1 max-w-6xl mx-auto">
+          <div className="p-3 space-y-1 w-full px-4 sm:px-8">
             {navItems.map((item) => {
               const isActive = pathname === item.href || (item.href !== '/' && pathname?.startsWith(item.href));
               const Icon = item.icon;

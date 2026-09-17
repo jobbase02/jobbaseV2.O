@@ -28,9 +28,11 @@ const config: Config = {
       fontFamily: {
         heading: ["'Instrument Serif'", "Georgia", "serif"],
         subheading: ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
-        body: ["'IBM Plex Serif'", "Georgia", "serif"],
+        body: ["Poppins", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        poppins: ["Poppins", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
         sans: ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
         serif: ["'Instrument Serif'", "'IBM Plex Serif'", "serif"],
+        avenue: ["'Avenue'", "sans-serif"],
       },
       boxShadow: {
         subtle: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",

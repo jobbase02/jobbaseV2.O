@@ -51,7 +51,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col bg-[#FAFAFA] text-slate-900 selection:bg-orange-500/20 selection:text-orange-900">
         <Navbar onOpenSearch={() => setIsSearchOpen(true)} />
-        <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <main className="flex-1 w-full">
           {children}
         </main>
         <Footer />

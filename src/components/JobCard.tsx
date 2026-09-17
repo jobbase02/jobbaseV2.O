@@ -27,15 +27,14 @@ export const JobCard: React.FC<JobCardProps> = ({ job, featured = false }) => {
   const typeColor = job.opportunityType === 'Internship'
     ? 'bg-sky-50 text-sky-700'
     : 'bg-orange-50 text-orange-700';
-    
+
   const displayExperience = job.experienceLevel?.toLowerCase().includes('fresh') ? 'Entry Level' : job.experienceLevel;
 
   return (
-    <article className={`group relative bg-white border rounded-xl p-5 transition-all duration-200 overflow-hidden flex flex-col justify-between ${
-      featured
-        ? 'border-orange-200 shadow-sm bg-orange-50/20'
-        : 'border-slate-200/70 hover:border-orange-200 hover:shadow-md'
-    }`}>
+    <article className={`group relative bg-white border rounded-xl p-5 transition-all duration-200 overflow-hidden flex flex-col justify-between ${featured
+      ? 'border-orange-200 shadow-sm bg-orange-50/20'
+      : 'border-slate-200/70 hover:border-orange-200 hover:shadow-md'
+      }`}>
       {/* Top accent bar for featured */}
       {featured && (
         <div className="absolute top-0 left-0 right-0 h-1 bg-orange-500" />
@@ -81,7 +80,7 @@ export const JobCard: React.FC<JobCardProps> = ({ job, featured = false }) => {
         {/* Job Title */}
         <div>
           <Link href={`/${slug}`}>
-            <h3 className="text-base font-bold text-slate-900 leading-snug group-hover:text-orange-600 transition-colors line-clamp-2">
+            <h3 className="text-xl font-normal text-slate-900 leading-snug group-hover:text-orange-600 transition-colors line-clamp-2 font-avenue tracking-normal">
               {job.title}
             </h3>
           </Link>
@@ -113,7 +112,7 @@ export const JobCard: React.FC<JobCardProps> = ({ job, featured = false }) => {
         </div>
 
       </div>
-      
+
       {/* Footer CTA */}
       <div className="flex items-center justify-between pt-4 mt-4 border-t border-slate-100">
         <Link
