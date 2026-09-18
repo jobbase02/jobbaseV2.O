@@ -57,22 +57,22 @@ function RelatedOpportunity({ job }: { job: NonNullable<Awaited<ReturnType<typeo
 const portableTextComponents: PortableTextComponents = {
   block: {
     h2: ({ children }) => (
-      <h2 className="text-lg sm:text-xl font-bold text-slate-900 mt-8 mb-3">
+      <h2 className="text-lg sm:text-xl font-bold text-slate-900 mt-8 mb-3 font-subheading">
         {children}
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-base font-semibold text-slate-900 mt-6 mb-2">
+      <h3 className="text-base font-semibold text-slate-900 mt-6 mb-2 font-subheading">
         {children}
       </h3>
     ),
     normal: ({ children }) => (
-      <p className="text-slate-600 text-sm sm:text-[15px] leading-relaxed mb-4">
+      <p className="text-slate-600 text-sm sm:text-[15px] leading-relaxed mb-4 font-subheading">
         {children}
       </p>
     ),
     blockquote: ({ children }) => (
-      <blockquote className="border-l-4 border-orange-500 pl-4 py-1 text-slate-600 italic my-5 bg-orange-50/50 rounded-r-xl text-sm">
+      <blockquote className="border-l-4 border-[#1D74C1] pl-4 py-1 text-slate-600 italic my-5 bg-[#F3F7FE] rounded-r-xl text-sm font-subheading">
         {children}
       </blockquote>
     ),
@@ -92,7 +92,7 @@ const portableTextComponents: PortableTextComponents = {
   listItem: {
     bullet: ({ children }) => (
       <li className="flex items-start gap-2 text-sm text-slate-600">
-        <CheckCircle2 className="w-4 h-4 text-orange-500 mt-0.5 shrink-0" />
+        <CheckCircle2 className="w-4 h-4 text-[#1D74C1] mt-0.5 shrink-0" />
         <span>{children}</span>
       </li>
     ),
@@ -102,7 +102,7 @@ const portableTextComponents: PortableTextComponents = {
     link: ({ value, children }) => {
       const href = getSafeExternalUrl(value?.href);
       return href ? (
-        <a href={href} target="_blank" rel="noopener noreferrer" className="text-orange-600 underline underline-offset-2 hover:text-orange-800 font-medium">
+        <a href={href} target="_blank" rel="noopener noreferrer" className="text-[#1D74C1] underline underline-offset-2 hover:text-[#175fa3] font-medium">
           {children}
         </a>
       ) : <span>{children}</span>;
@@ -137,7 +137,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
   const displayExperience = job.experienceLevel?.toLowerCase().includes('fresh') ? 'Entry Level' : job.experienceLevel;
 
   return (
-    <div className="font-article w-full max-w-7xl mx-auto space-y-6 px-4 sm:px-8 lg:px-12 pb-24 sm:pb-10 pt-4 fade-in-up">
+    <div className=" w-full max-w-7xl mx-auto space-y-6 px-4 sm:px-8 lg:px-12 pb-24 sm:pb-10 pt-4 fade-in-up">
 
       {/* Desktop 2-Column Layout / Mobile 1-Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -147,7 +147,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
 
           {/* Breadcrumb & Actions (Left section only) */}
           <div className="flex w-full items-center justify-between border-b border-slate-200 pb-4 lg:pt-[17px]">
-            <Link href="/jobs" className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-orange-600 transition-colors font-medium">
+            <Link href="/jobs" className="inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-[#1D74C1] transition-colors font-medium">
               <ArrowLeft className="w-4 h-4" />
               Back to Listings
             </Link>
@@ -189,7 +189,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
 
                 {/* Title */}
                 <div>
-                  <h1 className="text-2xl sm:text-3xl font-bold leading-tight">
+                  <h1 className="text-3xl sm:text-4xl font-medium sm:font-bold leading-tight font-subheading">
                     {job.title}
                   </h1>
                   <p className="mt-2 text-sm text-slate-500 font-medium flex items-center gap-1.5">
@@ -204,7 +204,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                     href={job.applyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-semibold text-sm shadow-sm transition-colors btn-press"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#1D74C1] hover:bg-[#175fa3] text-white font-semibold text-sm shadow-sm transition-colors btn-press"
                   >
                     Apply on Official Portal
                     <ExternalLink className="w-4 h-4" />
@@ -214,41 +214,41 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
               </header>
 
               {/* Key Details Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-5 border-b border-slate-200 pb-7">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#f97415] uppercase tracking-wide mb-1.5 font-subheading">
-                    <Briefcase className="w-3.5 h-3.5 text-[#f97415]" /> Role Type
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 border-b border-slate-200 pb-7 font-subheading">
+                <div className="bg-[#DDEEFF] border border-[#c4ddf7] rounded-xl p-3.5 space-y-1 shadow-2xs">
+                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#1D74C1] uppercase tracking-wide font-subheading">
+                    <Briefcase className="w-3.5 h-3.5 text-[#1D74C1]" /> Role Type
                   </div>
-                  <div className="text-sm sm:text-[15px] font-bold text-[#050316] font-subheading">{job.opportunityType || 'Full-Time'}</div>
+                  <div className="text-sm sm:text-[15px] font-bold text-[#1C4980] font-subheading">{job.opportunityType || 'Full-Time'}</div>
                 </div>
 
-                <div className="space-y-1">
-                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#f97415] uppercase tracking-wide mb-1.5 font-subheading">
-                    <GraduationCap className="w-3.5 h-3.5 text-[#f97415]" /> Batch
+                <div className="bg-[#DDEEFF] border border-[#c4ddf7] rounded-xl p-3.5 space-y-1 shadow-2xs">
+                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#1D74C1] uppercase tracking-wide font-subheading">
+                    <GraduationCap className="w-3.5 h-3.5 text-[#1D74C1]" /> Batch
                   </div>
-                  <div className="text-sm sm:text-[15px] font-bold text-[#050316] font-subheading">{job.eligibleBatches?.join(', ') || 'Any'}</div>
+                  <div className="text-sm sm:text-[15px] font-bold text-[#1C4980] font-subheading">{job.eligibleBatches?.join(', ') || 'Any'}</div>
                 </div>
 
-                <div className="space-y-1">
-                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#f97415] uppercase tracking-wide mb-1.5 font-subheading">
-                    <Clock className="w-3.5 h-3.5 text-[#f97415]" /> Experience
+                <div className="bg-[#DDEEFF] border border-[#c4ddf7] rounded-xl p-3.5 space-y-1 shadow-2xs">
+                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#1D74C1] uppercase tracking-wide font-subheading">
+                    <Clock className="w-3.5 h-3.5 text-[#1D74C1]" /> Experience
                   </div>
-                  <div className="text-sm sm:text-[15px] font-bold text-[#050316] font-subheading">{displayExperience || 'Entry Level'}</div>
+                  <div className="text-sm sm:text-[15px] font-bold text-[#1C4980] font-subheading">{displayExperience || 'Entry Level'}</div>
                 </div>
 
-                <div className="space-y-1">
-                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#f97415] uppercase tracking-wide mb-1.5 font-subheading">
-                    <Monitor className="w-3.5 h-3.5 text-[#f97415]" /> Work Mode
+                <div className="bg-[#DDEEFF] border border-[#c4ddf7] rounded-xl p-3.5 space-y-1 shadow-2xs">
+                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#1D74C1] uppercase tracking-wide font-subheading">
+                    <Monitor className="w-3.5 h-3.5 text-[#1D74C1]" /> Work Mode
                   </div>
-                  <div className="text-sm sm:text-[15px] font-bold text-[#050316] font-subheading">{job.workMode || 'Onsite'}</div>
+                  <div className="text-sm sm:text-[15px] font-bold text-[#1C4980] font-subheading">{job.workMode || 'Onsite'}</div>
                 </div>
               </div>
 
               {/* Qualification row */}
               {job.qualification && job.qualification.length > 0 && (
                 <div className="border-b border-slate-200 pb-7">
-                  <div className="text-xs font-bold text-[#f97415] uppercase tracking-wide mb-3 flex items-center gap-1.5 font-subheading">
-                    <GraduationCap className="w-4 h-4 text-[#f97415]" /> Required Education
+                  <div className="text-lg font-bold text-[#1D74C1] uppercase tracking-wide mb-3 flex items-center gap-1.5 font-subheading">
+                    Required Education
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {job.qualification.map((q: string, i: number) => (
@@ -263,13 +263,13 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
               {/* Key Requirements */}
               {job.keyDetails && job.keyDetails.length > 0 && (
                 <div className="border-b border-slate-200 pb-7 space-y-3">
-                  <h2 className="text-sm font-semibold font-body text-[#f97415]">
+                  <h2 className="text-lg font-bold font-body text-[#1D74C1]">
                     Key Requirements
                   </h2>
-                  <ul className="space-y-2.5">
+                  <ul className="space-y-2.5 font-semibold">
                     {job.keyDetails.map((detail: string, idx: number) => (
                       <li key={idx} className="flex items-start gap-2.5 text-sm text-slate-700">
-                        <CheckCircle2 className="w-4 h-4 text-orange-500 mt-0.5 shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 text-[#1D74C1] mt-0.5 shrink-0" />
                         <span className="leading-relaxed">{detail}</span>
                       </li>
                     ))}
@@ -279,16 +279,16 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
 
               {/* Job Description */}
               <div>
-                <h2 className="text-base font-semibold text-[#f97415] mb-4 pb-2 border-b border-slate-200 font-body">
+                <h2 className="text-lg font-bold text-[#1D74C1] mb-4 pb-2 border-b border-slate-200 font-subheading">
                   Role Description
                 </h2>
-                <div className="text-slate-700 leading-relaxed">
+                <div className="text-slate-700 leading-relaxed font-subheading">
                   {Array.isArray(job.description) && job.description.length > 0 ? (
                     <PortableText value={job.description} components={portableTextComponents} />
                   ) : typeof job.description === 'string' && job.description.trim().length > 0 ? (
-                    <p className="whitespace-pre-line text-sm text-slate-700">{job.description}</p>
+                    <p className="whitespace-pre-line text-sm sm:text-base text-slate-700 font-subheading">{job.description}</p>
                   ) : (
-                    <div className="text-sm text-slate-700 space-y-3">
+                    <div className="text-sm sm:text-base text-slate-700 space-y-3 font-subheading">
                       <p>
                         <strong className="font-semibold text-slate-900">{job.company}</strong> is hiring for the role of{' '}
                         <strong className="font-semibold text-slate-900">{job.title}</strong> ({displayExperience}).
@@ -316,7 +316,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                   href={job.applyUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-orange-500 text-white font-semibold text-sm shadow-sm hover:bg-orange-600 transition-colors btn-press shrink-0"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#1D74C1] text-white font-semibold text-sm shadow-sm hover:bg-[#175fa3] transition-colors btn-press shrink-0"
                 >
                   Apply Now <ExternalLink className="w-4 h-4" />
                 </a>
@@ -337,7 +337,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                 <h2 className="text-base font-bold text-slate-900">
                   Similar Opportunities
                 </h2>
-                <Link href="/" className="flex items-center gap-1 text-sm text-orange-600 hover:text-orange-700 font-medium transition-colors">
+                <Link href="/" className="flex items-center gap-1 text-sm text-[#1D74C1] hover:text-[#175fa3] font-medium transition-colors">
                   View all <ChevronRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -359,7 +359,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
                 <h2 className="text-base font-bold text-slate-900">
                   Similar Opportunities
                 </h2>
-                <Link href="/" className="flex items-center gap-1 text-xs text-orange-600 hover:text-orange-700 font-semibold transition-colors">
+                <Link href="/" className="flex items-center gap-1 text-xs text-[#1D74C1] hover:text-[#175fa3] font-semibold transition-colors">
                   View all <ChevronRight className="w-3.5 h-3.5" />
                 </Link>
               </div>

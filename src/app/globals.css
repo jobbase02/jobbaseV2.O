@@ -54,18 +54,38 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   JOBBASE THEME — brand colors from Jobbase_theme_color-codes.txt
+   Text:       #000000  — all readable text
+   Background: #fcfafe  — page & section surfaces
+   Primary:    #1D74C1  — CTAs, active states, links, interactive
+   Secondary:  #F3F7FE  — card fills, input surfaces, subtle hovers
+   Accent:     #353535  — footer, dark sections, strong contrast
+   ============================================================ */
+
 :root {
   --font-heading: 'Instrument Serif', Georgia, serif;
   --font-subheading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-body: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-avenue: 'Avenue', sans-serif;
-  --primary: #2563EB;
-  --primary-hover: #1D4ED8;
-  --accent: #06B6D4;
-  --brand-violet: #6D28D9;
-  --brand-cyan: #06B6D4;
-  --brand-yellow: #F5B800;
+
+  /* Jobbase brand theme */
+  --color-text: #000000;
+  --color-background: #fcfafe;
+  --color-primary: #1D74C1;
+  --color-primary-hover: #175fa3;
+  --color-primary-light: #e8f1fb;
+  --color-primary-muted: #d0e5f7;
+  --color-secondary: #F3F7FE;
+  --color-secondary-hover: #e2ecfd;
+  --color-accent: #353535;
+  --color-accent-hover: #242424;
+
+  /* Legacy aliases for gradual migration */
+  --primary: var(--color-primary);
+  --primary-hover: var(--color-primary-hover);
+  --accent: var(--color-accent);
 }
 
 * {
@@ -73,8 +93,8 @@
 }
 
 body {
-  background-color: #FFFFFF;
-  color: #050316;
+  background-color: var(--color-background);
+  color: var(--color-text);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -153,8 +173,13 @@ nav,
 }
 
 @keyframes aiSearchShimmer {
-  0% { background-position: 140% 0; }
-  100% { background-position: -40% 0; }
+  0% {
+    background-position: 140% 0;
+  }
+
+  100% {
+    background-position: -40% 0;
+  }
 }
 
 .ai-search-trigger,
@@ -162,80 +187,159 @@ nav,
   position: relative;
   isolation: isolate;
   border-width: 1px;
-  background-image: linear-gradient(
-    110deg,
-    transparent 20%,
-    rgb(37 99 235 / 0.07) 38%,
-    rgb(109 40 217 / 0.12) 48%,
-    rgb(6 182 212 / 0.08) 58%,
-    transparent 76%
-  );
+  background-image: linear-gradient(110deg,
+      transparent 20%,
+      rgb(29 116 193 / 0.06) 38%,
+      rgb(29 116 193 / 0.11) 48%,
+      rgb(29 116 193 / 0.06) 58%,
+      transparent 76%);
   background-size: 240% 100%;
   animation: aiSearchShimmer 7s ease-in-out infinite;
 }
 
 .ai-search-input:focus-within {
-  border-color: rgb(37 99 235 / 0.4);
-  box-shadow: 0 0 0 4px rgb(37 99 235 / 0.08), 0 8px 24px rgb(37 99 235 / 0.08);
+  border-color: rgb(29 116 193 / 0.4);
+  box-shadow: 0 0 0 4px rgb(29 116 193 / 0.08), 0 8px 24px rgb(29 116 193 / 0.08);
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .ai-search-trigger,
   .ai-search-input {
     animation: none;
   }
 }
 
-/* Graph paper background pattern */
+/* Graph paper background pattern — tuned to the #fcfafe background */
 .bg-graph-grid {
   background-image:
-    linear-gradient(to right, rgba(5, 3, 22, 0.045) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(5, 3, 22, 0.045) 1px, transparent 1px);
+    linear-gradient(to right, rgba(29, 116, 193, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(29, 116, 193, 0.06) 1px, transparent 1px);
   background-size: 44px 44px;
 }
 
-/* Logo palette: white surfaces with restrained blue, violet, cyan, and yellow accents. */
+/* ============================================================
+   JOBBASE THEME UTILITY OVERRIDES
+   Remap all legacy orange/violet/cyan classes to the brand palette.
+   Primary blue (#1D74C1) replaces all orange CTAs and active states.
+   Secondary (#F3F7FE) replaces light fill surfaces.
+   Accent (#353535) used for high-contrast dark surfaces.
+   ============================================================ */
 @layer utilities {
-  .bg-orange-50 { background-color: #EFF6FF !important; }
-  .bg-orange-50\/20 { background-color: rgb(239 246 255 / 0.2) !important; }
-  .bg-orange-500 { background-color: var(--primary) !important; }
-  .bg-orange-600 { background-color: var(--primary-hover) !important; }
-  .bg-orange-100 { background-color: #DBEAFE !important; }
+
+  /* ---- Light fill surfaces → Secondary #F3F7FE ---- */
+  .bg-orange-50 {
+    background-color: var(--color-secondary) !important;
+  }
+
+  .bg-orange-50\/20 {
+    background-color: rgb(243 247 254 / 0.2) !important;
+  }
+
+  .bg-orange-100 {
+    background-color: var(--color-primary-muted) !important;
+  }
+
+  /* ---- Primary interactive → #1D74C1 ---- */
+  .bg-orange-500 {
+    background-color: var(--color-primary) !important;
+  }
+
+  .bg-orange-600 {
+    background-color: var(--color-primary-hover) !important;
+  }
+
+  /* ---- Text → Primary blue ---- */
   .text-orange-500,
   .text-orange-600,
   .text-orange-700,
-  .text-orange-800 { color: var(--primary) !important; }
-  .border-orange-200,
-  .border-orange-300 { border-color: #BFDBFE !important; }
-  .ring-orange-500 { --tw-ring-color: var(--primary) !important; }
-  .selection\:bg-orange-500\/20::selection { background-color: rgb(37 99 235 / 0.2) !important; }
+  .text-orange-800 {
+    color: var(--color-primary) !important;
+  }
 
+  /* ---- Borders → Primary muted ---- */
+  .border-orange-200,
+  .border-orange-300 {
+    border-color: var(--color-primary-muted) !important;
+  }
+
+  .ring-orange-500 {
+    --tw-ring-color: var(--color-primary) !important;
+  }
+
+  .selection\:bg-orange-500\/20::selection {
+    background-color: rgb(29 116 193 / 0.2) !important;
+  }
+
+  /* ---- Inline color overrides (legacy hex refs) ---- */
   [class~="text-[#f97415]"],
-  [class~="text-[#F97415]"] { color: var(--primary) !important; }
+  [class~="text-[#F97415]"] {
+    color: var(--color-primary) !important;
+  }
+
   [class~="bg-[#f97415]"],
-  [class~="bg-[#F97415]"] { background-color: var(--primary) !important; }
+  [class~="bg-[#F97415]"] {
+    background-color: var(--color-primary) !important;
+  }
+
   [class~="bg-[#f97415]/10"],
-  [class~="bg-[#F97415]/10"] { background-color: rgb(37 99 235 / 0.1) !important; }
+  [class~="bg-[#F97415]/10"] {
+    background-color: rgb(29 116 193 / 0.1) !important;
+  }
+
   [class~="bg-[#f97415]/20"],
-  [class~="bg-[#F97415]/20"] { background-color: rgb(37 99 235 / 0.2) !important; }
+  [class~="bg-[#F97415]/20"] {
+    background-color: rgb(29 116 193 / 0.2) !important;
+  }
+
   [class~="bg-[#ea6305]"],
   [class~="bg-[#EA6305]"],
   [class~="bg-[#ea580c]"],
-  [class~="bg-[#EA580C]"] { background-color: var(--primary-hover) !important; }
+  [class~="bg-[#EA580C]"] {
+    background-color: var(--color-primary-hover) !important;
+  }
+
   [class~="bg-[#d95e09]"],
-  [class~="bg-[#D95E09]"] { background-color: #1E40AF !important; }
+  [class~="bg-[#D95E09]"] {
+    background-color: var(--color-primary-hover) !important;
+  }
+
   [class~="hover:bg-[#ea6305]"]:hover,
   [class~="hover:bg-[#EA6305]"]:hover,
   [class~="hover:bg-[#ea580c]"]:hover,
-  [class~="hover:bg-[#EA580C]"]:hover { background-color: var(--primary-hover) !important; }
+  [class~="hover:bg-[#EA580C]"]:hover {
+    background-color: var(--color-primary-hover) !important;
+  }
+
   [class~="border-[#f97415]"],
-  [class~="border-[#F97415]"] { border-color: var(--primary) !important; }
-  [class~="border-[#dddbff]"] { border-color: #DCE7FF !important; }
-  [class~="bg-[#fbfbfe]"] { background-color: #FFFFFF !important; }
-  [class~="bg-[#FAFAFA]"] { background-color: #FFFFFF !important; }
-  [class~="text-[#050316]"] { color: #111827 !important; }
+  [class~="border-[#F97415]"] {
+    border-color: var(--color-primary) !important;
+  }
+
+  /* ---- Legacy surface overrides → brand background/secondary ---- */
+  [class~="border-[#dddbff]"] {
+    border-color: var(--color-primary-muted) !important;
+  }
+
+  [class~="bg-[#fbfbfe]"] {
+    background-color: var(--color-background) !important;
+  }
+
+  [class~="bg-[#FAFAFA]"] {
+    background-color: var(--color-secondary) !important;
+  }
+
+  [class~="text-[#050316]"] {
+    color: var(--color-text) !important;
+  }
+
   [class~="hover:text-[#f97415]"]:hover,
-  [class~="hover:text-[#F97415]"]:hover { color: var(--primary) !important; }
+  [class~="hover:text-[#F97415]"]:hover {
+    color: var(--color-primary) !important;
+  }
+
   [class~="hover:border-[#f97415]/50"]:hover,
-  [class~="hover:border-[#F97415]/50"]:hover { border-color: #93C5FD !important; }
+  [class~="hover:border-[#F97415]/50"]:hover {
+    border-color: var(--color-primary-muted) !important;
+  }
 }

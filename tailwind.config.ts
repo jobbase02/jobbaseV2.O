@@ -9,21 +9,37 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#09090B",
-        foreground: "#FAFAFA",
+        // Jobbase brand theme palette
+        background: "#fcfafe",
+        foreground: "#000000",
+        primary: {
+          DEFAULT: "#1D74C1",
+          hover: "#175fa3",
+          light: "#e8f1fb",
+          muted: "#d0e5f7",
+        },
+        secondary: {
+          DEFAULT: "#F3F7FE",
+          hover: "#e2ecfd",
+        },
+        accent: {
+          DEFAULT: "#353535",
+          hover: "#242424",
+          muted: "#4a4a4a",
+        },
         surface: {
-          50: "#FAFAFA",
-          100: "#F4F4F5",
-          200: "#E4E4E7",
-          800: "#18181B",
-          900: "#09090B",
-          950: "#040405",
+          50: "#fcfafe",
+          100: "#F3F7FE",
+          200: "#e2ecfd",
+          800: "#353535",
+          900: "#242424",
+          950: "#111111",
         },
         brand: {
-          blue: "#2563EB",
-          cyan: "#06B6D4",
-          violet: "#6D28D9",
-          yellow: "#F5B800",
+          blue: "#1D74C1",
+          blueDark: "#175fa3",
+          blueLight: "#e8f1fb",
+          charcoal: "#353535",
         }
       },
       fontFamily: {

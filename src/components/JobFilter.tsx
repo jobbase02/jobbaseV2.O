@@ -24,14 +24,14 @@ export const JobFilter: React.FC<JobFilterProps> = ({ filters, onFilterChange, o
     filters.experience !== 'All' || filters.domain !== 'All' ||
     filters.workMode !== 'All' || filters.searchQuery !== '';
 
-  const selectClass = "w-full text-sm bg-white text-slate-900 border border-slate-200 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500 transition-all cursor-pointer font-medium appearance-none shadow-sm";
+  const selectClass = "w-full text-sm bg-white text-[#000000] border border-[#d0e5f7] rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#1D74C1]/30 focus:border-[#1D74C1] transition-all cursor-pointer font-medium appearance-none shadow-xs";
 
   return (
     <div className="space-y-3">
       {/* Section Heading */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 px-1">
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold text-[#050316] font-subheading tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-bold text-[#000000] font-subheading tracking-tight">
             Explore Opportunities
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 font-sans">
@@ -40,10 +40,10 @@ export const JobFilter: React.FC<JobFilterProps> = ({ filters, onFilterChange, o
         </div>
       </div>
 
-      <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+      <div className="bg-white border border-[#d0e5f7] rounded-xl shadow-xs overflow-hidden">
 
         {/* Type Pills Tab Bar */}
-        <div className="flex items-center justify-between gap-2 px-4 py-3 border-b border-slate-100 bg-slate-50">
+        <div className="flex items-center justify-between gap-2 px-4 py-3">
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
             {opportunityTypes.map((type) => (
               <button
@@ -51,8 +51,8 @@ export const JobFilter: React.FC<JobFilterProps> = ({ filters, onFilterChange, o
                 type="button"
                 onClick={() => onFilterChange('opportunityType', type)}
                 className={`shrink-0 px-4 py-1.5 rounded-lg text-xs font-semibold transition-all btn-press ${filters.opportunityType === type
-                  ? 'bg-[#EA6305] text-white shadow-sm'
-                  : 'bg-white text-slate-600 border border-slate-200 hover:border-orange-200 hover:text-orange-700'
+                  ? 'bg-[#1D74C1] text-white shadow-sm'
+                  : 'bg-[#fcfafe] text-[#353535] border border-[#d0e5f7] hover:border-[#1D74C1]/40 hover:text-[#1D74C1]'
                   }`}
               >
                 {type === 'All' ? 'All Roles' : type === 'Full-Time' ? 'Full-Time' : 'Internships'}

@@ -25,16 +25,16 @@ export function NewsletterSignup() {
   }
 
   return (
-    <section className="relative bg-white py-16 sm:py-24">
+    <section className="relative bg-[#fcfafe] py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="relative isolate overflow-hidden rounded-3xl bg-[#0b1220] px-6 py-16 shadow-2xl sm:px-16 md:py-20 lg:flex lg:items-center lg:gap-x-20 lg:px-24">
+        <div className="relative isolate overflow-hidden rounded-3xl bg-[#353535] px-6 py-16 shadow-2xl sm:px-16 md:py-20 lg:flex lg:items-center lg:gap-x-20 lg:px-24">
           {/* Subtle gradient background */}
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/40 via-[#0b1220] to-[#0b1220]"></div>
+          <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#1D74C1]/20 via-[#353535] to-[#353535]"></div>
           
-          <div className="absolute -top-24 -right-24 -z-10 h-96 w-96 transform-gpu rounded-full bg-blue-500/20 blur-3xl" aria-hidden="true"></div>
+          <div className="absolute -top-24 -right-24 -z-10 h-96 w-96 transform-gpu rounded-full bg-[#1D74C1]/15 blur-3xl" aria-hidden="true"></div>
           
           <div className="w-full max-w-md lg:mx-0 lg:flex-auto">
-            <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-cyan-400 mb-4">
+            <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#F3F7FE] mb-4">
               <Sparkles className="h-4 w-4" />
               <span>JobBase Updates</span>
             </div>
@@ -63,14 +63,14 @@ export function NewsletterSignup() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full rounded-xl border-0 bg-white/5 py-3.5 pl-11 pr-4 text-white shadow-sm ring-1 ring-inset ring-white/10 placeholder:text-slate-400 focus:bg-white/10 focus:ring-2 focus:ring-inset focus:ring-cyan-400 sm:text-sm sm:leading-6 transition-all"
+                  className="block w-full rounded-xl border-0 bg-white/5 py-3.5 pl-11 pr-4 text-white shadow-sm ring-1 ring-inset ring-white/10 placeholder:text-[#F3F7FE]/40 focus:bg-white/10 focus:ring-2 focus:ring-inset focus:ring-[#1D74C1] sm:text-sm sm:leading-6 transition-all"
                   placeholder="Enter your email"
                 />
               </div>
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-500 px-6 py-3.5 text-sm font-semibold text-[#0b1220] shadow-sm hover:bg-cyan-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#1D74C1] px-6 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-[#175fa3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D74C1] transition-all disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {status === 'loading' ? 'Joining...' : 'Subscribe'}
                 {status !== 'loading' && <ArrowRight className="h-4 w-4" />}

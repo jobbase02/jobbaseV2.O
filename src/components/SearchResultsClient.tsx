@@ -75,16 +75,16 @@ export function SearchResultsClient({ query, mode, intentParam, location }: Sear
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
       <div className="max-w-3xl">
-        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-orange-600">
+        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.18em] text-[#1D74C1]">
           {isAiSearch ? <Sparkles className="w-4 h-4" /> : <Search className="w-4 h-4" />}
           {isAiSearch ? 'AI search' : 'Search results'}
         </div>
-        <h1 className="mt-3 text-3xl sm:text-5xl font-bold text-[#050316] font-subheading">
+        <h1 className="mt-3 text-3xl sm:text-5xl font-bold text-[#000000] font-subheading">
           {isAiSearch ? 'Roles matched to your intent' : `Results for “${query}”`}
         </h1>
         {intent && (
           <div className="mt-4 flex flex-wrap gap-2">
-            {intent.company?.map((item) => <span key={`company-${item}`} className="px-2.5 py-1 rounded-md bg-orange-50 border border-orange-200 text-xs font-semibold text-orange-700">Company: {item}</span>)}
+            {intent.company?.map((item) => <span key={`company-${item}`} className="px-2.5 py-1 rounded-md bg-[#e8f1fb] border border-[#d0e5f7] text-xs font-semibold text-[#1D74C1]">Company: {item}</span>)}
             {intent.location?.map((item) => <span key={`location-${item}`} className="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700">Location: {item}</span>)}
             {intent.batch?.map((item) => <span key={`batch-${item}`} className="px-2.5 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700">Batch: {item}</span>)}
           </div>
@@ -92,10 +92,10 @@ export function SearchResultsClient({ query, mode, intentParam, location }: Sear
       </div>
 
       {!hasSearchInput ? (
-        <div className="mt-10 py-16 text-center bg-white border border-slate-200 rounded-xl">
+        <div className="mt-10 py-16 text-center bg-[#F3F7FE] border border-[#d0e5f7] rounded-xl">
           <Search className="w-10 h-10 text-slate-300 mx-auto" />
           <p className="mt-3 text-sm text-slate-500">Enter a search query to find matching jobs.</p>
-          <Link href="/jobs" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-orange-600 hover:text-orange-700">Browse all jobs <ArrowRight className="w-4 h-4" /></Link>
+          <Link href="/jobs" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#1D74C1] hover:text-[#175fa3]">Browse all jobs <ArrowRight className="w-4 h-4" /></Link>
         </div>
       ) : loading ? (
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-5" aria-busy="true">
@@ -107,7 +107,7 @@ export function SearchResultsClient({ query, mode, intentParam, location }: Sear
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {jobs.map((job) => <JobCard key={job._id} job={job} />)}
           </div>
-          {hasMore && <button onClick={loadMore} disabled={loadingMore} className="mt-8 mx-auto flex items-center gap-2 min-h-11 px-5 rounded-lg bg-orange-500 text-white text-sm font-semibold hover:bg-orange-600 disabled:opacity-60">
+          {hasMore && <button onClick={loadMore} disabled={loadingMore} className="mt-8 mx-auto flex items-center gap-2 min-h-11 px-5 rounded-lg bg-[#1D74C1] text-white text-sm font-semibold hover:bg-[#175fa3] disabled:opacity-60">
             {loadingMore && <Loader2 className="w-4 h-4 animate-spin" />}
             {loadingMore ? 'Loading jobs...' : 'Load more results'}
           </button>}

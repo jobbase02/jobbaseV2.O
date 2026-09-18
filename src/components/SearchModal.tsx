@@ -138,7 +138,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
           <button
             type="submit"
             disabled={loading || !query.trim()}
-            className="px-3.5 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600 text-xs font-bold disabled:opacity-50 transition-colors flex items-center gap-1.5 shrink-0 shadow-sm"
+            className="px-3.5 py-2 rounded-lg bg-[#1D74C1] text-white hover:bg-[#175fa3] text-xs font-bold disabled:opacity-50 transition-colors flex items-center gap-1.5 shrink-0 shadow-sm"
           >
             {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Sparkles className="w-3.5 h-3.5" />}
             Smart Search
@@ -152,10 +152,10 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
           {intent && (
             <div className="p-3 bg-neutral-50 rounded-xl border border-neutral-200 flex flex-wrap items-center gap-1.5 text-xs">
               <span className="font-bold text-neutral-600 flex items-center gap-1">
-                <Sparkles className="w-3.5 h-3.5 text-orange-500" /> Extracted Intent:
+                <Sparkles className="w-3.5 h-3.5 text-[#1D74C1]" /> Extracted Intent:
               </span>
               {intent.company && intent.company.length > 0 && (
-                <span className="px-2 py-0.5 rounded bg-orange-50 text-orange-700 font-bold border border-orange-200">
+                <span className="px-2 py-0.5 rounded bg-[#e8f1fb] text-[#1D74C1] font-bold border border-[#d0e5f7]">
                   Company: {intent.company.join(', ')}
                 </span>
               )}
@@ -180,7 +180,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
           {/* Results List */}
           {loading ? (
             <div className="py-10 text-center text-xs sm:text-sm text-neutral-500 flex flex-col items-center gap-2 font-medium">
-              <Loader2 className="w-6 h-6 animate-spin text-orange-500" />
+              <Loader2 className="w-6 h-6 animate-spin text-[#1D74C1]" />
               <span>Matching job updates across company, class & title...</span>
             </div>
           ) : results.length > 0 ? (
@@ -199,13 +199,13 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
                   >
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-neutral-950 text-sm group-hover:text-orange-600 transition-colors">
+                        <span className="font-bold text-neutral-950 text-sm group-hover:text-[#1D74C1] transition-colors">
                           {j.title}
                         </span>
                         <span className="text-xs font-semibold text-neutral-500">at {j.company}</span>
                       </div>
                       <div className="flex items-center gap-2 text-xs text-neutral-500 mt-1 font-medium">
-                        <span className="font-bold text-orange-600">{j.opportunityType || 'Full-Time'}</span>
+                        <span className="font-bold text-[#1D74C1]">{j.opportunityType || 'Full-Time'}</span>
                         <span>•</span>
                         <span>{j.location}</span>
                         <span>•</span>
@@ -219,7 +219,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => 
               <Link
                 href={seeAllHref}
                 onClick={onClose}
-                className="flex items-center justify-center gap-2 min-h-11 rounded-lg bg-orange-50 text-orange-700 text-sm font-semibold hover:bg-orange-100 transition-colors"
+                className="flex items-center justify-center gap-2 min-h-11 rounded-lg bg-[#F3F7FE] text-[#1D74C1] text-sm font-semibold hover:bg-[#e2ecfd] transition-colors"
               >
                 See all AI results <ArrowRight className="w-4 h-4" />
               </Link>

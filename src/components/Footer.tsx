@@ -2,9 +2,9 @@
 
 import React, { useState, FormEvent } from 'react';
 import Link from 'next/link';
-import { 
-  ShieldCheck, FileText, Lock, AlertTriangle, X, BriefcaseBusiness, 
-  Wrench, BookOpen, Mail, Sparkles, ArrowRight, CheckCircle2 
+import {
+  ShieldCheck, FileText, Lock, AlertTriangle, X, BriefcaseBusiness,
+  Wrench, BookOpen, Mail, Sparkles, ArrowRight, CheckCircle2
 } from 'lucide-react';
 
 export const Footer: React.FC = () => {
@@ -36,17 +36,17 @@ export const Footer: React.FC = () => {
   }
 
   return (
-    <footer className="w-full bg-[#0b1220] relative overflow-hidden antialiased [font-synthesis:none] border-t border-slate-800">
+    <footer className="w-full bg-[#353535] relative overflow-hidden antialiased [font-synthesis:none] border-t border-[#242424]">
       {/* Decorative subtle gradients */}
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-[#0b1220] to-[#0b1220]"></div>
-      <div className="absolute top-0 right-0 -z-10 h-96 w-96 transform-gpu rounded-full bg-blue-500/10 blur-3xl" aria-hidden="true"></div>
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#1D74C1]/15 via-[#353535] to-[#353535]"></div>
+      <div className="absolute top-0 right-0 -z-10 h-96 w-96 transform-gpu rounded-full bg-[#1D74C1]/8 blur-3xl" aria-hidden="true"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-16 pb-10 sm:pt-20 sm:pb-14 flex flex-col gap-12 lg:gap-16">
-        
+
         {/* TOP PART: NEWSLETTER */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-10 pb-12 border-b border-slate-800">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-10 pb-12 border-b border-[#4a4a4a]">
           <div className="max-w-xl">
-            <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-cyan-400 mb-4">
+            <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#F3F7FE] mb-4">
               <Sparkles className="h-4 w-4" />
               <span>JobBase Updates</span>
             </div>
@@ -57,7 +57,7 @@ export const Footer: React.FC = () => {
               Get hand-picked job alerts and practical career resources directly in your inbox. No spam, just value.
             </p>
           </div>
-          
+
           <div className="w-full lg:max-w-md shrink-0 lg:pt-8">
             <form onSubmit={handleSubmit} className="relative flex flex-col sm:flex-row gap-3">
               <label htmlFor="footer-email-address" className="sr-only">Email address</label>
@@ -73,14 +73,14 @@ export const Footer: React.FC = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full rounded-xl border-0 bg-white/5 py-3.5 pl-11 pr-4 text-white shadow-sm ring-1 ring-inset ring-white/10 placeholder:text-slate-500 focus:bg-white/10 focus:ring-2 focus:ring-inset focus:ring-cyan-400 sm:text-sm sm:leading-6 transition-all"
+                  className="block w-full rounded-xl border-0 bg-white/5 py-3.5 pl-11 pr-4 text-white shadow-sm ring-1 ring-inset ring-white/10 placeholder:text-[#F3F7FE]/40 focus:bg-white/10 focus:ring-2 focus:ring-inset focus:ring-[#1D74C1] sm:text-sm sm:leading-6 transition-all"
                   placeholder="Enter your email"
                 />
               </div>
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-cyan-500 px-6 py-3.5 text-sm font-semibold text-[#0b1220] shadow-sm hover:bg-cyan-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-400 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#1D74C1] px-6 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-[#175fa3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D74C1] transition-all disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {status === 'loading' ? 'Joining...' : 'Subscribe'}
                 {status !== 'loading' && <ArrowRight className="h-4 w-4" />}
@@ -111,39 +111,39 @@ export const Footer: React.FC = () => {
 
         {/* MIDDLE PART: LOGO + LINKS */}
         <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10 lg:gap-16">
-          
+
           {/* Middle Left Side: Logo and Text */}
           <div className="flex flex-col space-y-4">
             <Link href="/" className="inline-block">
               <img src="/logo.png" alt="JobBase Logo" className="w-36 lg:w-44 h-auto object-contain" />
             </Link>
-            <p className="text-slate-400 text-sm sm:text-base leading-relaxed font-body max-w-sm">
+            <p className="text-[#F3F7FE]/60 text-sm sm:text-base leading-relaxed font-body max-w-sm">
               A focused place to discover verified jobs, internships, and practical career resources.
             </p>
           </div>
 
           {/* Middle Right Side: Quick Links and Legals */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-10 md:pl-12 md:border-l md:border-slate-800">
-            
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-10 md:pl-12 md:border-l md:border-[#4a4a4a]">
+
             {/* Explore Column */}
             <div className="flex flex-col gap-3 sm:gap-4">
-              <h3 className="text-blue-300 font-bold text-xs sm:text-sm tracking-[0.16em] uppercase font-subheading">
+              <h3 className="text-[#F3F7FE]/70 font-bold text-xs sm:text-sm tracking-[0.16em] uppercase font-subheading">
                 Explore
               </h3>
               <ul className="flex flex-col gap-2.5">
                 <li>
-                  <Link href="/jobs" className="text-slate-300 hover:text-white transition-colors text-sm font-medium flex items-center gap-2 font-subheading">
-                    <BriefcaseBusiness className="w-3.5 h-3.5 text-cyan-300" /> All Jobs
+                  <Link href="/jobs" className="text-[#F3F7FE]/80 hover:text-white transition-colors text-sm font-medium flex items-center gap-2 font-subheading">
+                    <BriefcaseBusiness className="w-3.5 h-3.5 text-[#1D74C1]" /> All Jobs
                   </Link>
                 </li>
                 <li>
-                  <Link href="/tools" className="text-slate-300 hover:text-white transition-colors text-sm font-medium flex items-center gap-2 font-subheading">
-                    <Wrench className="w-3.5 h-3.5 text-cyan-300" /> Career Tools
+                  <Link href="/tools" className="text-[#F3F7FE]/80 hover:text-white transition-colors text-sm font-medium flex items-center gap-2 font-subheading">
+                    <Wrench className="w-3.5 h-3.5 text-[#1D74C1]" /> Career Tools
                   </Link>
                 </li>
                 <li>
-                  <Link href="/resources" className="text-slate-300 hover:text-white transition-colors text-sm font-medium flex items-center gap-2 font-subheading">
-                    <BookOpen className="w-3.5 h-3.5 text-cyan-300" /> Resources
+                  <Link href="/resources" className="text-[#F3F7FE]/80 hover:text-white transition-colors text-sm font-medium flex items-center gap-2 font-subheading">
+                    <BookOpen className="w-3.5 h-3.5 text-[#1D74C1]" /> Resources
                   </Link>
                 </li>
               </ul>
@@ -151,7 +151,7 @@ export const Footer: React.FC = () => {
 
             {/* Job Types Column */}
             <div className="flex flex-col gap-3 sm:gap-4">
-              <h3 className="text-blue-300 font-bold text-xs sm:text-sm tracking-[0.16em] uppercase font-subheading">
+              <h3 className="text-[#F3F7FE]/70 font-bold text-xs sm:text-sm tracking-[0.16em] uppercase font-subheading">
                 Job Types
               </h3>
               <ul className="flex flex-col gap-2.5">
@@ -180,7 +180,7 @@ export const Footer: React.FC = () => {
 
             {/* Legal Column */}
             <div className="flex flex-col gap-3 sm:gap-4">
-              <h3 className="text-blue-300 font-bold text-xs sm:text-sm tracking-[0.16em] uppercase font-subheading">
+              <h3 className="text-[#F3F7FE]/70 font-bold text-xs sm:text-sm tracking-[0.16em] uppercase font-subheading">
                 Legal
               </h3>
               <ul className="flex flex-col gap-2.5">
@@ -210,13 +210,13 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* BOTTOM PART: COPYRIGHT AND DEVELOPED BY */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-800 pt-8 mt-2">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#4a4a4a] pt-8 mt-2">
           <p className="font-light text-slate-500 text-xs sm:text-sm font-body">
             © {new Date().getFullYear()} {companyName}, All rights reserved
           </p>
           <p className="text-xs sm:text-sm text-slate-500 font-body">
             Developed by{' '}
-            <a href="https://www.elevenxsolutions.com" target="_blank" rel="noopener noreferrer" className="font-medium text-blue-400 transition-colors hover:text-cyan-400">
+            <a href="https://www.elevenxsolutions.com" target="_blank" rel="noopener noreferrer" className="font-medium text-[#F3F7FE]/80 transition-colors hover:text-[#1D74C1]">
               Eleven X Solutions
             </a>
           </p>

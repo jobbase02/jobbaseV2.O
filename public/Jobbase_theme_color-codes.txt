@@ -1,0 +1,11 @@
+Your selected colors:
+
+    Text: #000000 - rgb(0, 0, 0) - hsl(0, 0%, 0%)
+    Background: #fcfafe - rgb(252, 250, 254) - hsl(270, 67%, 99%)
+    Primary: #1D74C1 - rgb(29, 116, 193) - hsl(208, 74%, 44%)
+    Secondary: #F3F7FE - rgb(243, 247, 254) - hsl(218, 85%, 97%)
+    Accent: #353535 - rgb(53, 53, 53) - hsl(0, 0%, 21%)
+
+Realtime Colors link for selected colors: https://www.realtimecolors.com/?colors=000000-fcfafe-1D74C1-F3F7FE-353535&fonts=Inter%20Tight-Inter
+
+Thanks for using RealtimeColors.com!

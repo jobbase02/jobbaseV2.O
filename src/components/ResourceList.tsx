@@ -3,29 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import { ResourceItem } from '@/types';
 import {
-  BookOpen, Download, Eye, FileText, FileArchive,
-  File, Search, SlidersHorizontal, ShieldCheck, Sparkles
+  BookOpen, Download, FileText, FileArchive,
+  File, Search, SlidersHorizontal, ArrowUpRight
 } from 'lucide-react';
 import { getSafeResourceUrl } from '@/lib/url-security';
 
 function FormatIcon({ format }: { format: string }) {
   const f = format?.toUpperCase();
-  if (f === 'PDF') return <FileText className="w-6 h-6 text-white" />;
-  if (f === 'ZIP') return <FileArchive className="w-6 h-6 text-white" />;
-  if (f === 'DOCX' || f === 'DOC') return <File className="w-6 h-6 text-white" />;
-  return <File className="w-6 h-6 text-white" />;
-}
-
-function getCardGradient(idx: number) {
-  const gradients = [
-    'bg-gradient-to-br from-indigo-500 to-purple-600',
-    'bg-gradient-to-br from-emerald-400 to-teal-600',
-    'bg-gradient-to-br from-rose-400 to-red-600',
-    'bg-gradient-to-br from-amber-400 to-orange-500',
-    'bg-gradient-to-br from-sky-400 to-blue-600',
-    'bg-gradient-to-br from-fuchsia-500 to-pink-600',
-  ];
-  return gradients[idx % gradients.length];
+  if (f === 'PDF') return <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-[#1D74C1]" />;
+  if (f === 'ZIP') return <FileArchive className="w-5 h-5 sm:w-6 sm:h-6 text-[#1D74C1]" />;
+  if (f === 'DOCX' || f === 'DOC') return <File className="w-5 h-5 sm:w-6 sm:h-6 text-[#1D74C1]" />;
+  return <File className="w-5 h-5 sm:w-6 sm:h-6 text-[#1D74C1]" />;
 }
 
 function getMaskedUrl(url: string) {
@@ -88,7 +76,7 @@ export default function ResourceList({ resources }: { resources: ResourceItem[] 
 
       {/* Header Section (Simple & SEO Friendly) */}
       <div className="max-w-3xl space-y-3 pb-4">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#050316] font-subheading tracking-tight">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#000000] font-poppins tracking-tight">
           Free Career Resources &amp; Guides
         </h1>
         <p className="text-sm sm:text-base text-slate-500 font-body leading-relaxed">
@@ -106,7 +94,7 @@ export default function ResourceList({ resources }: { resources: ResourceItem[] 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search roadmaps, ATS templates, tags..."
-            className="w-full text-xs sm:text-sm bg-white text-[#050316] placeholder-slate-400 border border-[#dddbff] focus:border-[#f97415] rounded-xl pl-11 pr-4 py-3 focus:outline-none transition-all shadow-2xs font-body"
+            className="w-full text-xs sm:text-sm bg-[#fcfafe] text-[#000000] placeholder-slate-400 border border-[#d0e5f7] focus:border-[#1D74C1] rounded-xl pl-11 pr-4 py-3 focus:outline-none transition-all shadow-2xs font-body"
           />
         </div>
 
@@ -118,8 +106,8 @@ export default function ResourceList({ resources }: { resources: ResourceItem[] 
               key={cat}
               onClick={() => { setSelectedCategory(cat); setSearchQuery(''); }}
               className={`px-4 py-2.5 rounded-xl text-xs font-semibold shrink-0 transition-all font-subheading ${selectedCategory === cat
-                ? 'bg-[#050316] text-white shadow-xs'
-                : 'bg-white text-slate-700 border border-[#dddbff] hover:border-[#f97415]/50 hover:text-[#f97415]'
+                ? 'bg-[#1D74C1] text-white shadow-xs'
+                : 'bg-white text-[#353535] border border-[#d0e5f7] hover:border-[#1D74C1]/50 hover:text-[#1D74C1]'
                 }`}
             >
               {cat}
@@ -130,85 +118,115 @@ export default function ResourceList({ resources }: { resources: ResourceItem[] 
 
       {/* Grid */}
       {filtered.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
-          {filtered.map((item, idx) => (
-            <div
-              key={item.id}
-              className={`relative overflow-hidden rounded-3xl p-5 sm:p-6 flex flex-col justify-between shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group ${getCardGradient(idx)}`}
-            >
-              {/* Decorative background shapes */}
-              <div className="absolute -right-8 -top-8 w-24 h-24 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:bg-white/20 transition-colors" />
-              <div className="absolute -left-8 -bottom-8 w-20 h-20 bg-black/10 rounded-full blur-2xl pointer-events-none" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          {filtered.map((item) => {
+            const visibleTags = item.tags?.slice(0, 2) || [];
+            const remainingCount = (item.tags?.length || 0) - visibleTags.length;
 
-              {/* Top */}
-              <div className="space-y-4 relative z-10 text-white">
-                <div className="flex items-start justify-between gap-2">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-white/20 flex items-center justify-center shrink-0 border border-white/10 backdrop-blur-md group-hover:scale-105 transition-transform">
-                    <FormatIcon format={item.format} />
-                  </div>
-                  <div className="flex flex-col items-end gap-1 shrink-0 ml-auto">
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-black/20 text-white border border-white/10 backdrop-blur-sm">
-                      {item.format}
+            return (
+              <div
+                key={item.id}
+                className="relative overflow-hidden rounded-[26px] p-5 sm:p-6 flex flex-col justify-between bg-[#F6F6FE] border border-[#c4ddf7] shadow-[0_3px_14px_-2px_rgba(28,73,128,0.07),inset_0_1px_0_rgba(255,255,255,0.7)] hover:shadow-[0_16px_34px_-6px_rgba(28,73,128,0.18),inset_0_1px_0_rgba(255,255,255,0.9)] hover:-translate-y-1 hover:border-[#1D74C1]/40 transition-all duration-300 group min-h-[265px]"
+              >
+                {/* Ambient corner highlights */}
+                <div className="absolute -top-12 -right-12 w-32 h-32 bg-white/60 rounded-full blur-2xl pointer-events-none group-hover:scale-125 transition-transform duration-500" />
+                <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-[#1D74C1]/8 rounded-full blur-xl pointer-events-none" />
+
+                {/* Top Section: Category & File Spec */}
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between gap-2 mb-3.5">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/80 border border-[#b8d6f5] text-[11px] font-semibold text-[#1C4980] shadow-2xs font-poppins">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#1D74C1]" />
+                      <span>{item.category}</span>
                     </span>
-                    <span className="text-[10px] text-white/80 font-subheading font-medium">{item.file_size}</span>
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/95 border border-[#b8d6f5] text-[11px] font-bold text-[#1D74C1] shadow-2xs font-subheading">
+                      <FormatIcon format={item.format} />
+                      <span>{item.format}</span>
+                      <span className="text-slate-300">•</span>
+                      <span className="font-semibold text-[#0D273C]/70">{item.file_size}</span>
+                    </div>
                   </div>
-                </div>
 
-                <div className="space-y-1.5 mt-2">
-                  <h2 className="text-lg sm:text-xl font-bold font-subheading tracking-tight leading-tight line-clamp-2">
-                    {item.title}
-                  </h2>
-                  <p className="text-xs text-white/90 font-body line-clamp-3 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
+                  {/* Title & Description */}
+                  <div className="space-y-1.5">
+                    <h2 className="text-[17px] sm:text-[18px] font-bold font-poppins text-[#000000] group-hover:text-[#1D74C1] transition-colors tracking-tight leading-snug line-clamp-2">
+                      {item.title}
+                    </h2>
+                    <p className="text-xs sm:text-[13px] text-[#0D273C]/75 font-poppins line-clamp-2 leading-relaxed mt-1.5">
+                      {item.description}
+                    </p>
+                  </div>
 
-                {/* Tags */}
-                {item.tags?.length > 0 && (
-                  <div className="flex flex-wrap gap-1.5 pt-2">
-                    {item.tags.slice(0, 3).map((tag, i) => (
-                      <span key={i} className="text-[10px] text-white/90 bg-white/10 px-2 py-0.5 rounded-md border border-white/10 font-subheading">
+                  {/* Topic / Skill Pills (Refined reference tags with +N count) */}
+                  <div className="flex flex-wrap items-center gap-1.5 pt-4">
+                    {visibleTags.map((tag, i) => (
+                      <span
+                        key={i}
+                        className="text-xs font-medium font-poppins text-[#1C4980] bg-white/85 px-3 py-1 rounded-full border border-[#c4ddf7] shadow-2xs hover:bg-white transition-colors"
+                      >
                         {tag}
                       </span>
                     ))}
+                    {remainingCount > 0 && (
+                      <span
+                        className="text-xs font-semibold font-poppins text-[#1C4980] bg-white/85 px-2.5 py-1 rounded-full border border-[#c4ddf7] shadow-2xs"
+                        title={item.tags?.slice(2).join(', ')}
+                      >
+                        +{remainingCount}
+                      </span>
+                    )}
+                    {visibleTags.length === 0 && (
+                      <span className="text-xs font-medium font-poppins text-[#1C4980] bg-white/85 px-3 py-1 rounded-full border border-[#c4ddf7] shadow-2xs">
+                        Free Material
+                      </span>
+                    )}
                   </div>
-                )}
-              </div>
+                </div>
 
-              {/* Actions */}
-              <div className="mt-6 pt-4 border-t border-white/20 relative z-10 flex flex-col gap-2.5">
-                <a
-                  href={getViewerUrl(item)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-white text-slate-900 text-xs sm:text-sm font-bold shadow-sm hover:bg-slate-50 transition-all active:scale-[0.98]"
-                >
-                  <Eye className="w-4 h-4" /> View File
-                </a>
-                <a
-                  href={getMaskedUrl(item.file_url)}
-                  download
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-black/20 text-white text-xs sm:text-sm font-bold shadow-sm hover:bg-black/30 transition-all border border-white/10 active:scale-[0.98]"
-                >
-                  <Download className="w-4 h-4" /> Download
-                </a>
+                {/* Bottom Dock: Action Row */}
+                <div className="mt-6 pt-4 border-t border-[#c4ddf7]/70 relative z-10 flex items-center justify-between gap-3">
+                  <span className="text-xs font-semibold text-[#1C4980] font-poppins">
+                    Free Guide
+                  </span>
+
+                  {/* Right: Actions */}
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={getMaskedUrl(item.file_url)}
+                      download
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white text-[#1C4980] hover:text-[#1D74C1] hover:bg-white/90 border border-[#b8d6f5] flex items-center justify-center shadow-2xs transition-all active:scale-95"
+                      title="Direct Download"
+                    >
+                      <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                    </a>
+                    <a
+                      href={getViewerUrl(item)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-1.5 px-4 py-2 sm:px-4.5 sm:py-2 rounded-full bg-[#1D74C1] hover:bg-[#175fa3] text-white text-xs sm:text-sm font-semibold font-subheading shadow-xs hover:shadow transition-all active:scale-95"
+                    >
+                      <span>Start</span>
+                      <ArrowUpRight className="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       ) : (
-        <div className="py-20 text-center bg-[#fbfbfe] border border-[#dddbff] rounded-2xl space-y-3 shadow-xs">
+        <div className="py-20 text-center bg-[#F3F7FE] border border-[#d0e5f7] rounded-2xl space-y-3 shadow-xs">
           <BookOpen className="w-12 h-12 text-slate-300 mx-auto" />
-          <h3 className="text-base font-bold text-[#050316] font-subheading">
+          <h3 className="text-base font-bold text-[#000000] font-poppins">
             {searchQuery ? `No resources matching "${searchQuery}"` : 'No resources available'}
           </h3>
           <p className="text-xs sm:text-sm text-slate-500 font-body">
             {searchQuery ? 'Try adjusting your search keyword or selecting a different category.' : 'Check back soon for new interview guides & roadmaps.'}
           </p>
           {searchQuery && (
-            <button onClick={() => setSearchQuery('')} className="mt-2 text-xs sm:text-sm font-semibold text-[#f97415] hover:underline font-subheading">
+            <button onClick={() => setSearchQuery('')} className="mt-2 text-xs sm:text-sm font-semibold text-[#1D74C1] hover:underline font-subheading">
               Clear Search Filter
             </button>
           )}

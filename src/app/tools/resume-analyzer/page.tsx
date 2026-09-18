@@ -19,12 +19,12 @@ export default function ResumeAnalyzerPage() {
       <div className="max-w-2xl space-y-4">
         <Link 
           href="/tools" 
-          className="inline-flex items-center gap-2 text-xs font-bold text-emerald-600 hover:text-emerald-700 transition-colors uppercase tracking-wider"
+          className="inline-flex items-center gap-2 text-xs font-bold text-[#1D74C1] hover:text-[#175fa3] transition-colors uppercase tracking-wider"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Tools
         </Link>
         <div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-[#050316] font-subheading">Resume Analyzer</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-[#000000] font-subheading">Resume Analyzer</h1>
           <p className="mt-3 text-sm text-slate-500">
             Upload your PDF resume to get an instant, detailed audit using AI. We extract the text locally in your browser so your PDF is never saved on our servers.
           </p>

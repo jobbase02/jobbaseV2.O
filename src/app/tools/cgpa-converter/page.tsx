@@ -16,12 +16,12 @@ export default function CGPAConverterToolPage() {
       <div className="max-w-2xl space-y-4">
         <Link 
           href="/tools" 
-          className="inline-flex items-center gap-2 text-xs font-bold text-amber-600 hover:text-amber-700 transition-colors uppercase tracking-wider"
+          className="inline-flex items-center gap-2 text-xs font-bold text-[#1D74C1] hover:text-[#175fa3] transition-colors uppercase tracking-wider"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Tools
         </Link>
         <div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-[#050316] font-subheading">CGPA Converter</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-[#000000] font-subheading">CGPA Converter</h1>
           <p className="mt-3 text-sm text-slate-500">
             Convert your CGPA score to an exact percentage using official university formulas. Ideal for IT company registration forms and GATE exams.
           </p>
@@ -36,7 +36,7 @@ export default function CGPAConverterToolPage() {
         <div className="max-w-3xl space-y-8">
           
           <header className="space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-xs font-bold text-amber-700">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3F7FE] border border-[#d0e5f7] text-xs font-bold text-[#1D74C1]">
               <BookOpen className="w-3.5 h-3.5" /> Conversion Guide
             </div>
             <h2 className="text-2xl font-extrabold text-slate-900 font-subheading">
@@ -51,7 +51,7 @@ export default function CGPAConverterToolPage() {
             {/* Section 1 */}
             <section className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
               <h3 className="text-base font-bold text-slate-900 flex items-center gap-2 mb-2">
-                <CheckCircle2 className="w-4 h-4 text-amber-600" />
+                <CheckCircle2 className="w-4 h-4 text-[#1D74C1]" />
                 Standard 10-Point Scale (CBSE / AICTE)
               </h3>
               <p className="text-sm text-slate-600 mb-4">
@@ -68,7 +68,7 @@ export default function CGPAConverterToolPage() {
             {/* Section 2 */}
             <section className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
               <h3 className="text-base font-bold text-slate-900 flex items-center gap-2 mb-2">
-                <CheckCircle2 className="w-4 h-4 text-amber-600" />
+                <CheckCircle2 className="w-4 h-4 text-[#1D74C1]" />
                 Visvesvaraya Technological University (VTU)
               </h3>
               <p className="text-sm text-slate-600 mb-4">
@@ -100,12 +100,12 @@ export default function CGPAConverterToolPage() {
             </div>
 
             {/* Section 5 */}
-            <section className="bg-amber-50 rounded-2xl p-6 border border-amber-200">
-              <h3 className="text-sm font-bold text-amber-900 flex items-center gap-2 mb-3">
-                <Info className="w-4 h-4 text-amber-600" />
+            <section className="bg-[#F3F7FE] rounded-2xl p-6 border border-[#d0e5f7]">
+              <h3 className="text-sm font-bold text-[#353535] flex items-center gap-2 mb-3">
+                <Info className="w-4 h-4 text-[#1D74C1]" />
                 Off-Campus Hiring Guidelines
               </h3>
-              <ul className="space-y-2 text-sm text-amber-800 font-medium">
+              <ul className="space-y-2 text-sm text-[#353535] font-medium">
                 <li>• Most IT major off-campus drives require a minimum aggregate of 60% or 6.5 CGPA without active backlogs.</li>
                 <li>• <strong>Never</strong> round up 59.9% to 60.0% unless specified by the company application portal.</li>
               </ul>

@@ -51,7 +51,7 @@ function CountUpNumber({ targetNumber, suffix = '' }: { targetNumber: number; su
   }, [targetNumber, hasAnimated]);
 
   return (
-    <div ref={ref} className="text-5xl sm:text-4xl lg:text-7xl font-semibold text-[#050316] tracking-wide font-heading">
+    <div ref={ref} className="text-5xl sm:text-4xl lg:text-7xl font-semibold text-[#000000] tracking-wide font-heading">
       {count}{suffix}
     </div>
   );
@@ -66,7 +66,7 @@ export function MoreAboutSection() {
   ];
 
   return (
-    <section className="w-full bg-[#F7F8FA]  py-10 sm:py-20">
+    <section className="w-full bg-[#F3F7FE]  py-10 sm:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-12">
 
@@ -74,14 +74,14 @@ export function MoreAboutSection() {
           <div className="w-full lg:w-[50%] space-y-6 flex flex-col items-center lg:items-start text-left lg:text-left">
 
             {/* Eyebrow */}
-            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-normal font-avenue text-[#FFA000]">
-              <Flag className="w-4 h-4 text-[#FFA000]" />
+            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-normal font-avenue text-[#1D74C1]">
+              <Flag className="w-4 h-4 text-[#1D74C1]" />
               <span>More about JobBase</span>
             </div>
 
             {/* Heading */}
-            <h2 className="text-2xl sm:text-3xl lg:text-[2.2rem] font-medium text-[#050316] leading-tight tracking-normal max-w-2xl font-body">
-              <span className="text-[#FF6F00] font-body">
+            <h2 className="text-[1.46rem] sm:text-3xl lg:text-[2.5rem] font-medium text-[#000000] leading-tight tracking-normal lg:leading-tight max-w-2xl font-body">
+              <span className="text-[#1D74C1] font-body">
                 The right role doesn't find you. You find it.
               </span>{' '}
               Discover Opportunities Built Around Your Strengths, Your Goals, And The Career You're Working Toward.
@@ -90,8 +90,8 @@ export function MoreAboutSection() {
             {/* Client Logos Infinite Loop Slider */}
             <div className="pt-10 w-full max-w-xl relative overflow-hidden font-subheading text-sm sm:text-xl font-bold uppercase tracking-wider text-slate-700 ">
               {/* Left & Right Edge Fade Gradients */}
-              <div className="absolute left-0 top-0 bottom-0 w-10 sm:w-16 bg-gradient-to-r from-[#F7F8FA] to-transparent z-10 pointer-events-none" />
-              <div className="absolute right-0 top-0 bottom-0 w-10 sm:w-16 bg-gradient-to-l from-[#F7F8FA] to-transparent z-10 pointer-events-none" />
+              <div className="absolute left-0 top-0 bottom-0 w-10 sm:w-16 bg-gradient-to-r from-[#F3F7FE] to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-10 sm:w-16 bg-gradient-to-l from-[#F3F7FE] to-transparent z-10 pointer-events-none" />
 
               <InfiniteSlider gap={36} duration={42} durationOnHover={60}>
                 <div className="shrink-0 flex items-center gap-2">
@@ -122,7 +122,7 @@ export function MoreAboutSection() {
                   <span className="font-subheading text-black">Amazon</span>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">
-                  <img src="https://cdn.simpleicons.org/flipkart/2874F0" alt="Flipkart" className="w-5 h-5 object-contain" />
+                  <img src="https://images.seeklogo.com/logo-png/31/1/flipkart-logo-png_seeklogo-318406.png" alt="Flipkart" className="w-5 h-5 object-contain" />
                   <span className="font-subheading text-[#007CD8]">Flipkart</span>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">

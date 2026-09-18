@@ -16,12 +16,12 @@ export default function ColdEmailGeneratorToolPage() {
       <div className="max-w-2xl space-y-4">
         <Link 
           href="/tools" 
-          className="inline-flex items-center gap-2 text-xs font-bold text-indigo-600 hover:text-indigo-700 transition-colors uppercase tracking-wider"
+          className="inline-flex items-center gap-2 text-xs font-bold text-[#1D74C1] hover:text-[#175fa3] transition-colors uppercase tracking-wider"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Tools
         </Link>
         <div>
-          <h1 className="text-3xl sm:text-4xl font-bold text-[#050316] font-subheading">Outreach Email Generator</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-[#000000] font-subheading">Outreach Email Generator</h1>
           <p className="mt-3 text-sm text-slate-500">
             Generate crisp, high-conversion referral templates tailored for LinkedIn messages or recruiter emails. Stand out in their inbox.
           </p>
@@ -36,7 +36,7 @@ export default function ColdEmailGeneratorToolPage() {
         <div className="max-w-3xl space-y-8">
           
           <header className="space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-xs font-bold text-indigo-700">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#F3F7FE] border border-[#d0e5f7] text-xs font-bold text-[#1D74C1]">
               <BookOpen className="w-3.5 h-3.5" /> Outreach Strategy Guide
             </div>
             <h2 className="text-2xl font-extrabold text-slate-900 font-subheading">
@@ -51,7 +51,7 @@ export default function ColdEmailGeneratorToolPage() {
             {/* Section 1 */}
             <section className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
               <h3 className="text-base font-bold text-slate-900 flex items-center gap-2 mb-3">
-                <CheckCircle2 className="w-4 h-4 text-indigo-600" />
+                <CheckCircle2 className="w-4 h-4 text-[#1D74C1]" />
                 The Golden Rules of Referral Requests
               </h3>
               <p className="text-sm text-slate-600 mb-4">
@@ -59,15 +59,15 @@ export default function ColdEmailGeneratorToolPage() {
               </p>
               <ul className="space-y-2 text-sm text-slate-800 font-medium">
                 <li className="flex items-start gap-2">
-                  <span className="text-indigo-600 font-black">•</span>
+                  <span className="text-[#1D74C1] font-black">•</span>
                   <span><strong>Be Hyper-Concise:</strong> Keep your message under 150 words. Respect their time.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-indigo-600 font-black">•</span>
+                  <span className="text-[#1D74C1] font-black">•</span>
                   <span><strong>Provide Job ID / Link:</strong> Always include the exact role name or link so they can paste your resume with 1-click.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-indigo-600 font-black">•</span>
+                  <span className="text-[#1D74C1] font-black">•</span>
                   <span><strong>Highlight 2 Core Skills:</strong> Mention your primary stack (e.g. React, Go) matching the job description.</span>
                 </li>
               </ul>
@@ -76,7 +76,7 @@ export default function ColdEmailGeneratorToolPage() {
             {/* Section 2 */}
             <section className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
               <h3 className="text-base font-bold text-slate-900 flex items-center gap-2 mb-3">
-                <CheckCircle2 className="w-4 h-4 text-indigo-600" />
+                <CheckCircle2 className="w-4 h-4 text-[#1D74C1]" />
                 High-Conversion LinkedIn Connection Template
               </h3>
               <p className="text-sm text-slate-600 mb-4">
@@ -94,16 +94,16 @@ I'd be glad to share my resume for quick review. Thanks for your time!`}
             </section>
 
             {/* Section 3 */}
-            <section className="bg-indigo-50 rounded-2xl p-6 border border-indigo-200">
-              <h3 className="text-base font-bold text-indigo-900 flex items-center gap-2 mb-4">
-                <Lightbulb className="w-4 h-4 text-indigo-600" />
+            <section className="bg-[#F3F7FE] rounded-2xl p-6 border border-[#d0e5f7]">
+              <h3 className="text-base font-bold text-[#353535] flex items-center gap-2 mb-4">
+                <Lightbulb className="w-4 h-4 text-[#1D74C1]" />
                 High Open-Rate Subject Lines
               </h3>
-              <div className="space-y-3 text-sm text-indigo-800">
-                <div className="p-3 rounded-lg bg-white border border-indigo-100 font-mono font-medium shadow-sm">
+              <div className="space-y-3 text-sm text-[#353535]">
+                <div className="p-3 rounded-lg bg-white border border-[#d0e5f7] font-mono font-medium shadow-sm">
                   Subject: Referral Inquiry: [Role Name] - [Batch Year] Graduate ([Your Key Skill])
                 </div>
-                <div className="p-3 rounded-lg bg-white border border-indigo-100 font-mono font-medium shadow-sm">
+                <div className="p-3 rounded-lg bg-white border border-[#d0e5f7] font-mono font-medium shadow-sm">
                   Subject: Application for [Role Name] - [Your Name] ([Alumni Institution])
                 </div>
               </div>

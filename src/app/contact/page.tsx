@@ -71,11 +71,11 @@ function ContactForm() {
 
       <div className="border-y border-slate-200 py-8 sm:py-10">
         <div className="mb-8">
-          <div className="mb-5 flex items-center gap-2 text-blue-600">
+          <div className="mb-5 flex items-center gap-2 text-[#1D74C1]">
             <Mail className="w-5 h-5" />
             <span className="text-xs font-bold uppercase tracking-[0.18em]">JobBase support</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">Contact Us</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#000000] tracking-tight">Contact Us</h1>
           <p className="text-slate-500 mt-2">
             {isAdInquiry 
               ? 'Interested in advertising on JobBase? Fill out the form below and our team will get back to you shortly.'
@@ -109,7 +109,7 @@ function ContactForm() {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full px-0 py-3 rounded-none bg-transparent border-0 border-b border-slate-300 focus:border-blue-600 focus:ring-0 transition-all text-sm outline-none font-medium"
+                  className="w-full px-0 py-3 rounded-none bg-transparent border-0 border-b border-slate-300 focus:border-[#1D74C1] focus:ring-0 transition-all text-sm outline-none font-medium"
                   placeholder="John Doe"
                 />
               </div>
@@ -122,7 +122,7 @@ function ContactForm() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-0 py-3 rounded-none bg-transparent border-0 border-b border-slate-300 focus:border-blue-600 focus:ring-0 transition-all text-sm outline-none font-medium"
+                  className="w-full px-0 py-3 rounded-none bg-transparent border-0 border-b border-slate-300 focus:border-[#1D74C1] focus:ring-0 transition-all text-sm outline-none font-medium"
                   placeholder="john@company.com"
                 />
               </div>
@@ -137,7 +137,7 @@ function ContactForm() {
                 value={formData.reason}
                 onChange={handleChange}
                 disabled={isAdInquiry || isJobReport}
-                className="w-full px-0 py-3 rounded-none bg-transparent border-0 border-b border-slate-300 focus:border-blue-600 focus:ring-0 transition-all text-sm outline-none font-medium disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full px-0 py-3 rounded-none bg-transparent border-0 border-b border-slate-300 focus:border-[#1D74C1] focus:ring-0 transition-all text-sm outline-none font-medium disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 <option value="" disabled>Select a reason...</option>
                 {isAdInquiry ? (
@@ -167,7 +167,7 @@ function ContactForm() {
                       name="page_name"
                       value={formData.page_name}
                       onChange={handleChange}
-                      className="w-full px-0 py-2 bg-transparent border-0 border-b border-slate-300 text-sm outline-none font-medium text-slate-500 focus:border-blue-600"
+                      className="w-full px-0 py-2 bg-transparent border-0 border-b border-slate-300 text-sm outline-none font-medium text-slate-500 focus:border-[#1D74C1]"
                       placeholder="e.g. Homepage"
                     />
                   </div>
@@ -179,7 +179,7 @@ function ContactForm() {
                       name="ad_spot"
                       value={formData.ad_spot}
                       onChange={handleChange}
-                      className="w-full px-0 py-2 bg-transparent border-0 border-b border-slate-300 text-sm outline-none font-medium text-slate-500 focus:border-blue-600"
+                      className="w-full px-0 py-2 bg-transparent border-0 border-b border-slate-300 text-sm outline-none font-medium text-slate-500 focus:border-[#1D74C1]"
                       placeholder="e.g. Banner Top"
                     />
                   </div>
@@ -198,7 +198,7 @@ function ContactForm() {
                 value={formData.message}
                 onChange={handleChange}
                 rows={4}
-                className="w-full px-0 py-3 rounded-none bg-transparent border-0 border-b border-slate-300 focus:border-blue-600 focus:ring-0 transition-all text-sm outline-none font-medium resize-none"
+                className="w-full px-0 py-3 rounded-none bg-transparent border-0 border-b border-slate-300 focus:border-[#1D74C1] focus:ring-0 transition-all text-sm outline-none font-medium resize-none"
                 placeholder="How can we help you?"
               />
             </div>
@@ -212,7 +212,7 @@ function ContactForm() {
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition-colors disabled:opacity-70 disabled:cursor-not-allowed btn-press"
+              className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-[#1D74C1] text-white font-bold text-sm hover:bg-[#175fa3] transition-colors disabled:opacity-70 disabled:cursor-not-allowed btn-press"
             >
               {status === 'loading' ? 'Sending Message...' : (
                 <>Send Message <Send className="w-4 h-4" /></>
