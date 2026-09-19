@@ -41,25 +41,25 @@ export const Footer: React.FC = () => {
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#1D74C1]/15 via-[#353535] to-[#353535]"></div>
       <div className="absolute top-0 right-0 -z-10 h-96 w-96 transform-gpu rounded-full bg-[#1D74C1]/8 blur-3xl" aria-hidden="true"></div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-16 pb-10 sm:pt-20 sm:pb-14 flex flex-col gap-12 lg:gap-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 pt-12 pb-8 sm:pt-20 sm:pb-14 flex flex-col gap-10 sm:gap-12 lg:gap-16">
 
         {/* TOP PART: NEWSLETTER */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-10 pb-12 border-b border-[#4a4a4a]">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 sm:gap-10 pb-10 sm:pb-12 border-b border-[#4a4a4a]">
           <div className="max-w-xl">
-            <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#F3F7FE] mb-4">
-              <Sparkles className="h-4 w-4" />
+            <div className="flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest text-[#F3F7FE] mb-2.5 sm:mb-4">
+              <Sparkles className="h-4 w-4 text-[#1D74C1]" />
               <span>JobBase Updates</span>
             </div>
-            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-              Fresh opportunities.<br />Delivered weekly.
+            <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-white leading-tight">
+              Fresh opportunities.<br className="hidden sm:block" /> Delivered weekly.
             </h2>
-            <p className="mt-4 text-lg leading-relaxed text-slate-400">
+            <p className="mt-2.5 sm:mt-4 text-sm sm:text-base leading-relaxed text-slate-400 font-body">
               Get hand-picked job alerts and practical career resources directly in your inbox. No spam, just value.
             </p>
           </div>
 
           <div className="w-full lg:max-w-md shrink-0 lg:pt-8">
-            <form onSubmit={handleSubmit} className="relative flex flex-col sm:flex-row gap-3">
+            <form onSubmit={handleSubmit} className="relative flex flex-col sm:flex-row gap-2.5 sm:gap-3">
               <label htmlFor="footer-email-address" className="sr-only">Email address</label>
               <div className="relative flex-grow">
                 <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
@@ -73,35 +73,35 @@ export const Footer: React.FC = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full rounded-xl border-0 bg-white/5 py-3.5 pl-11 pr-4 text-white shadow-sm ring-1 ring-inset ring-white/10 placeholder:text-[#F3F7FE]/40 focus:bg-white/10 focus:ring-2 focus:ring-inset focus:ring-[#1D74C1] sm:text-sm sm:leading-6 transition-all"
+                  className="block w-full min-h-[46px] rounded-xl border-0 bg-white/5 py-3 pl-11 pr-4 text-white shadow-sm ring-1 ring-inset ring-white/10 placeholder:text-[#F3F7FE]/40 focus:bg-white/10 focus:ring-2 focus:ring-inset focus:ring-[#1D74C1] text-sm transition-all"
                   placeholder="Enter your email"
                 />
               </div>
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#1D74C1] px-6 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-[#175fa3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D74C1] transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                className="inline-flex shrink-0 min-h-[46px] items-center justify-center gap-2 rounded-xl bg-[#1D74C1] px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[#175fa3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1D74C1] transition-all disabled:opacity-70 disabled:cursor-not-allowed active:scale-[0.98]"
               >
                 {status === 'loading' ? 'Joining...' : 'Subscribe'}
                 {status !== 'loading' && <ArrowRight className="h-4 w-4" />}
               </button>
             </form>
-            <p className="mt-2.5 text-[11px] text-slate-500">
+            <p className="mt-2 text-[11px] text-slate-500">
               By subscribing you opt for email notifications, but you can unsubscribe at any time.
             </p>
-            <div className="mt-3 h-6">
+            <div className="mt-2.5 min-h-6">
               {status === 'success' && (
-                <p className="flex items-center gap-2 text-sm font-medium text-emerald-400">
+                <p className="flex items-center gap-2 text-xs sm:text-sm font-medium text-emerald-400">
                   <CheckCircle2 className="h-4 w-4" /> You're successfully subscribed!
                 </p>
               )}
               {status === 'already_subscribed' && (
-                <p className="flex items-center gap-2 text-sm font-medium text-blue-400">
+                <p className="flex items-center gap-2 text-xs sm:text-sm font-medium text-blue-400">
                   <CheckCircle2 className="h-4 w-4" /> You are already subscribed!
                 </p>
               )}
               {status === 'error' && (
-                <p className="text-sm font-medium text-red-400">
+                <p className="text-xs sm:text-sm font-medium text-red-400">
                   Oops! Something went wrong. Please try again.
                 </p>
               )}
@@ -110,20 +110,42 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* MIDDLE PART: LOGO + LINKS */}
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10 lg:gap-16">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 sm:gap-10 lg:gap-16">
 
           {/* Middle Left Side: Logo and Text */}
-          <div className="flex flex-col space-y-4">
+          <div className="flex flex-col space-y-3.5 sm:space-y-4">
             <Link href="/" className="inline-block">
-              <img src="/logo.png" alt="JobBase Logo" className="w-36 lg:w-44 h-auto object-contain" />
+              <img src="/logo.png" alt="JobBase Logo" className="w-32 sm:w-36 lg:w-44 h-auto object-contain" />
             </Link>
-            <p className="text-[#F3F7FE]/60 text-sm sm:text-base leading-relaxed font-body max-w-sm">
+            <p className="text-[#F3F7FE]/70 text-xs sm:text-sm leading-relaxed font-body max-w-sm">
               A focused place to discover verified jobs, internships, and practical career resources.
             </p>
+
+            {/* Mobile Social Connections */}
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              <a
+                href="https://t.me/jobbase02"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-white/90 border border-white/10 text-xs font-medium font-subheading transition-colors"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#1D74C1]" />
+                Telegram
+              </a>
+              <a
+                href="https://t.me/jobbase02"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-white/90 border border-white/10 text-xs font-medium font-subheading transition-colors"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#E1306C]" />
+                Instagram
+              </a>
+            </div>
           </div>
 
-          {/* Middle Right Side: Quick Links and Legals */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-10 md:pl-12 md:border-l md:border-[#4a4a4a]">
+          {/* Middle Right Side: Navigation Columns (Balanced 2-col + full width legal on mobile) */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 sm:gap-x-8 gap-y-7 sm:gap-y-10 md:pl-12 md:border-l md:border-[#4a4a4a]">
 
             {/* Explore Column */}
             <div className="flex flex-col gap-3 sm:gap-4">
@@ -132,17 +154,17 @@ export const Footer: React.FC = () => {
               </h3>
               <ul className="flex flex-col gap-2.5">
                 <li>
-                  <Link href="/jobs" className="text-[#F3F7FE]/80 hover:text-white transition-colors text-sm font-medium flex items-center gap-2 font-subheading">
+                  <Link href="/jobs" className="text-[#F3F7FE]/80 hover:text-white transition-colors text-xs sm:text-sm font-medium flex items-center gap-2 font-subheading">
                     <BriefcaseBusiness className="w-3.5 h-3.5 text-[#1D74C1]" /> All Jobs
                   </Link>
                 </li>
                 <li>
-                  <Link href="/tools" className="text-[#F3F7FE]/80 hover:text-white transition-colors text-sm font-medium flex items-center gap-2 font-subheading">
+                  <Link href="/tools" className="text-[#F3F7FE]/80 hover:text-white transition-colors text-xs sm:text-sm font-medium flex items-center gap-2 font-subheading">
                     <Wrench className="w-3.5 h-3.5 text-[#1D74C1]" /> Career Tools
                   </Link>
                 </li>
                 <li>
-                  <Link href="/resources" className="text-[#F3F7FE]/80 hover:text-white transition-colors text-sm font-medium flex items-center gap-2 font-subheading">
+                  <Link href="/resources" className="text-[#F3F7FE]/80 hover:text-white transition-colors text-xs sm:text-sm font-medium flex items-center gap-2 font-subheading">
                     <BookOpen className="w-3.5 h-3.5 text-[#1D74C1]" /> Resources
                   </Link>
                 </li>
@@ -156,61 +178,65 @@ export const Footer: React.FC = () => {
               </h3>
               <ul className="flex flex-col gap-2.5">
                 <li>
-                  <Link href="/jobs?opportunityType=Full-Time" className="text-slate-300 hover:text-white transition-colors text-sm font-medium font-subheading">
+                  <Link href="/jobs?opportunityType=Full-Time" className="text-slate-300 hover:text-white transition-colors text-xs sm:text-sm font-medium font-subheading">
                     Full-Time Jobs
                   </Link>
                 </li>
                 <li>
-                  <Link href="/jobs?opportunityType=Internship" className="text-slate-300 hover:text-white transition-colors text-sm font-medium font-subheading">
+                  <Link href="/jobs?opportunityType=Internship" className="text-slate-300 hover:text-white transition-colors text-xs sm:text-sm font-medium font-subheading">
                     Internships
                   </Link>
                 </li>
                 <li>
-                  <Link href="/jobs?batch=2025" className="text-slate-300 hover:text-white transition-colors text-sm font-medium font-subheading">
+                  <Link href="/jobs?batch=2025" className="text-slate-300 hover:text-white transition-colors text-xs sm:text-sm font-medium font-subheading">
                     2025 Class
                   </Link>
                 </li>
                 <li>
-                  <Link href="/jobs?batch=2026" className="text-slate-300 hover:text-white transition-colors text-sm font-medium font-subheading">
+                  <Link href="/jobs?batch=2026" className="text-slate-300 hover:text-white transition-colors text-xs sm:text-sm font-medium font-subheading">
                     2026 Class
                   </Link>
                 </li>
               </ul>
             </div>
 
-            {/* Legal Column */}
-            <div className="flex flex-col gap-3 sm:gap-4">
+            {/* Legal Column (Spans 2 columns on mobile as touch-friendly chips) */}
+            <div className="col-span-2 sm:col-span-1 flex flex-col gap-3 sm:gap-4 pt-4 sm:pt-0 border-t border-[#4a4a4a]/50 sm:border-0">
               <h3 className="text-[#F3F7FE]/70 font-bold text-xs sm:text-sm tracking-[0.16em] uppercase font-subheading">
-                Legal
+                Legal &amp; Policies
               </h3>
-              <ul className="flex flex-col gap-2.5">
-                <li>
-                  <button onClick={() => setActiveModal('fairUse')} className="text-slate-300 hover:text-white transition-colors text-sm font-medium text-left font-subheading">
-                    Fair Use Notice
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => setActiveModal('disclaimer')} className="text-slate-300 hover:text-white transition-colors text-sm font-medium text-left font-subheading">
-                    Disclaimer
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => setActiveModal('terms')} className="text-slate-300 hover:text-white transition-colors text-sm font-medium text-left font-subheading">
-                    Terms of Service
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => setActiveModal('privacy')} className="text-slate-300 hover:text-white transition-colors text-sm font-medium text-left font-subheading">
-                    Privacy Policy
-                  </button>
-                </li>
-              </ul>
+              <div className="flex flex-wrap gap-2 sm:flex-col sm:gap-2.5">
+                <button
+                  onClick={() => setActiveModal('fairUse')}
+                  className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors text-xs sm:text-sm font-medium text-left font-subheading border border-white/10 sm:border-0 sm:bg-transparent sm:p-0 sm:hover:bg-transparent"
+                >
+                  Fair Use Notice
+                </button>
+                <button
+                  onClick={() => setActiveModal('disclaimer')}
+                  className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors text-xs sm:text-sm font-medium text-left font-subheading border border-white/10 sm:border-0 sm:bg-transparent sm:p-0 sm:hover:bg-transparent"
+                >
+                  Disclaimer
+                </button>
+                <button
+                  onClick={() => setActiveModal('terms')}
+                  className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors text-xs sm:text-sm font-medium text-left font-subheading border border-white/10 sm:border-0 sm:bg-transparent sm:p-0 sm:hover:bg-transparent"
+                >
+                  Terms of Service
+                </button>
+                <button
+                  onClick={() => setActiveModal('privacy')}
+                  className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors text-xs sm:text-sm font-medium text-left font-subheading border border-white/10 sm:border-0 sm:bg-transparent sm:p-0 sm:hover:bg-transparent"
+                >
+                  Privacy Policy
+                </button>
+              </div>
             </div>
           </div>
         </div>
 
         {/* BOTTOM PART: COPYRIGHT AND DEVELOPED BY */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#4a4a4a] pt-8 mt-2">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-center sm:text-left border-t border-[#4a4a4a] pt-6 sm:pt-8 mt-2">
           <p className="font-light text-slate-500 text-xs sm:text-sm font-body">
             © {new Date().getFullYear()} {companyName}, All rights reserved
           </p>
@@ -224,20 +250,25 @@ export const Footer: React.FC = () => {
 
       </div>
 
-      {/* Legal Modals */}
+      {/* Legal Modals (Optimized as a native mobile bottom sheet on mobile, modal on desktop) */}
       {activeModal && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 animate-in fade-in duration-150">
-          <div className="bg-white text-slate-900 rounded-2xl w-full max-w-md p-6 space-y-5 shadow-2xl relative max-h-[80vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 animate-in fade-in duration-150">
+          <div className="bg-white text-slate-900 rounded-t-[28px] sm:rounded-2xl w-full max-w-md p-5 sm:p-6 pb-8 sm:pb-6 space-y-4 sm:space-y-5 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+            {/* Mobile Sheet Drag Indicator */}
+            <div className="w-12 h-1.5 rounded-full bg-slate-300 mx-auto mb-2 sm:hidden" />
 
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <h3 className="font-bold text-slate-900 flex items-center gap-2">
+              <h3 className="font-bold text-slate-900 text-sm sm:text-base flex items-center gap-2">
                 {activeModal === 'fairUse' && <><ShieldCheck className="w-4 h-4 text-indigo-500" /> Fair Use Notice</>}
                 {activeModal === 'disclaimer' && <><AlertTriangle className="w-4 h-4 text-amber-500" /> Disclaimer</>}
                 {activeModal === 'terms' && <><FileText className="w-4 h-4 text-sky-600" /> Terms of Service</>}
                 {activeModal === 'privacy' && <><Lock className="w-4 h-4 text-emerald-600" /> Privacy Policy</>}
               </h3>
-              <button onClick={() => setActiveModal(null)}
-                className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-all">
+              <button
+                onClick={() => setActiveModal(null)}
+                aria-label="Close modal"
+                className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-all"
+              >
                 <X className="w-4 h-4" />
               </button>
             </div>

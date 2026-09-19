@@ -79,24 +79,23 @@ const portableTextComponents: PortableTextComponents = {
   },
   list: {
     bullet: ({ children }) => (
-      <ul className="space-y-2 text-slate-600 text-sm mb-5 pl-1">
+      <ul className="list-disc list-outside space-y-2 text-slate-900 text-sm mb-5 pl-5 marker:text-slate-900">
         {children}
       </ul>
     ),
     number: ({ children }) => (
-      <ol className="list-decimal list-inside space-y-2 text-slate-600 text-sm mb-5">
+      <ol className="list-decimal list-inside space-y-2 text-slate-900 text-sm mb-5">
         {children}
       </ol>
     ),
   },
   listItem: {
     bullet: ({ children }) => (
-      <li className="flex items-start gap-2 text-sm text-slate-600">
-        <CheckCircle2 className="w-4 h-4 text-[#1D74C1] mt-0.5 shrink-0" />
-        <span>{children}</span>
+      <li className="text-sm text-slate-900 leading-relaxed font-subheading">
+        {children}
       </li>
     ),
-    number: ({ children }) => <li className="text-slate-600 text-sm">{children}</li>,
+    number: ({ children }) => <li className="text-slate-900 text-sm font-subheading">{children}</li>,
   },
   marks: {
     link: ({ value, children }) => {
@@ -163,7 +162,7 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
 
                 {/* Company + Logo */}
                 <div className="flex items-center gap-4">
-                  <div className="w-16 h-16 rounded-xl border border-slate-200 bg-white flex items-center justify-center overflow-hidden shrink-0 shadow-sm">
+                  <div className="w-16 h-16 rounded-xl bg-white flex items-center justify-center overflow-hidden shrink-0 shadow-sm">
                     {job.companyLogo ? (
                       <img src={job.companyLogo} alt={job.company} className="w-full h-full object-contain p-2" />
                     ) : (
@@ -214,45 +213,45 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
               </header>
 
               {/* Key Details Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 border-b border-slate-200 pb-7 font-subheading">
-                <div className="bg-[#DDEEFF] border border-[#c4ddf7] rounded-xl p-3.5 space-y-1 shadow-2xs">
-                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#1D74C1] uppercase tracking-wide font-subheading">
-                    <Briefcase className="w-3.5 h-3.5 text-[#1D74C1]" /> Role Type
+              <div className="flex flex-wrap gap-2.5 sm:gap-3 pb-4 font-subheading">
+                <div className="w-fit bg-[#175FA3] border border-[#c4ddf7] rounded-xl px-3 py-1.5 space-y-0.5 shadow-2xs">
+                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-white uppercase tracking-wide font-body">
+                    <Briefcase className="w-3.5 h-3.5 text-white" /> Role Type
                   </div>
-                  <div className="text-sm sm:text-[15px] font-bold text-[#1C4980] font-subheading">{job.opportunityType || 'Full-Time'}</div>
+                  <div className="text-sm sm:text-[15px] font-bold text-white font-body">{job.opportunityType || 'Full-Time'}</div>
                 </div>
 
-                <div className="bg-[#DDEEFF] border border-[#c4ddf7] rounded-xl p-3.5 space-y-1 shadow-2xs">
-                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#1D74C1] uppercase tracking-wide font-subheading">
-                    <GraduationCap className="w-3.5 h-3.5 text-[#1D74C1]" /> Batch
+                <div className="w-fit bg-[#175FA3] border border-[#c4ddf7] rounded-xl px-3 py-1.5 space-y-0.5 shadow-2xs">
+                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-white uppercase tracking-wide font-body">
+                    <GraduationCap className="w-3.5 h-3.5 text-white" /> Batch
                   </div>
-                  <div className="text-sm sm:text-[15px] font-bold text-[#1C4980] font-subheading">{job.eligibleBatches?.join(', ') || 'Any'}</div>
+                  <div className="text-sm sm:text-[15px] font-bold text-white font-body">{job.eligibleBatches?.join(', ') || 'Any'}</div>
                 </div>
 
-                <div className="bg-[#DDEEFF] border border-[#c4ddf7] rounded-xl p-3.5 space-y-1 shadow-2xs">
-                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#1D74C1] uppercase tracking-wide font-subheading">
-                    <Clock className="w-3.5 h-3.5 text-[#1D74C1]" /> Experience
+                <div className="w-fit bg-[#175FA3] border border-[#c4ddf7] rounded-xl px-3 py-1.5 space-y-0.5 shadow-2xs">
+                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-white uppercase tracking-wide font-body">
+                    <Clock className="w-3.5 h-3.5 text-white" /> Experience
                   </div>
-                  <div className="text-sm sm:text-[15px] font-bold text-[#1C4980] font-subheading">{displayExperience || 'Entry Level'}</div>
+                  <div className="text-sm sm:text-[15px] font-bold text-white font-body">{displayExperience || 'Entry Level'}</div>
                 </div>
 
-                <div className="bg-[#DDEEFF] border border-[#c4ddf7] rounded-xl p-3.5 space-y-1 shadow-2xs">
-                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#1D74C1] uppercase tracking-wide font-subheading">
-                    <Monitor className="w-3.5 h-3.5 text-[#1D74C1]" /> Work Mode
+                <div className="w-fit bg-[#175FA3] border border-[#c4ddf7] rounded-xl px-3 py-1.5 space-y-0.5 shadow-2xs">
+                  <div className="flex items-center gap-1.5 text-[11px] font-bold text-white uppercase tracking-wide font-body">
+                    <Monitor className="w-3.5 h-3.5 text-white" /> Work Mode
                   </div>
-                  <div className="text-sm sm:text-[15px] font-bold text-[#1C4980] font-subheading">{job.workMode || 'Onsite'}</div>
+                  <div className="text-sm sm:text-[15px] font-bold text-white font-body">{job.workMode || 'Onsite'}</div>
                 </div>
               </div>
 
               {/* Qualification row */}
               {job.qualification && job.qualification.length > 0 && (
-                <div className="border-b border-slate-200 pb-7">
-                  <div className="text-lg font-bold text-[#1D74C1] uppercase tracking-wide mb-3 flex items-center gap-1.5 font-subheading">
+                <div className=" pb-7">
+                  <div className="text-lg font-bold text-black uppercase tracking-wide mb-3 flex items-center gap-1.5 font-body">
                     Required Education
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {job.qualification.map((q: string, i: number) => (
-                      <span key={i} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 font-subheading">
+                      <span key={i} className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 font-body">
                         {q}
                       </span>
                     ))}
@@ -262,11 +261,11 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
 
               {/* Key Requirements */}
               {job.keyDetails && job.keyDetails.length > 0 && (
-                <div className="border-b border-slate-200 pb-7 space-y-3">
-                  <h2 className="text-lg font-bold font-body text-[#1D74C1]">
+                <div className=" pb-7 space-y-3">
+                  <h2 className="text-lg font-bold font-body text-black">
                     Key Requirements
                   </h2>
-                  <ul className="space-y-2.5 font-semibold">
+                  <ul className="space-y-2.5 font-body">
                     {job.keyDetails.map((detail: string, idx: number) => (
                       <li key={idx} className="flex items-start gap-2.5 text-sm text-slate-700">
                         <CheckCircle2 className="w-4 h-4 text-[#1D74C1] mt-0.5 shrink-0" />
@@ -279,16 +278,16 @@ export default async function JobDetailsPage({ params }: JobPageProps) {
 
               {/* Job Description */}
               <div>
-                <h2 className="text-lg font-bold text-[#1D74C1] mb-4 pb-2 border-b border-slate-200 font-subheading">
+                <h2 className="text-lg font-bold text-black mb-4 pb-2  font-body">
                   Role Description
                 </h2>
-                <div className="text-slate-700 leading-relaxed font-subheading">
+                <div className="text-slate-700 leading-relaxed font-body">
                   {Array.isArray(job.description) && job.description.length > 0 ? (
                     <PortableText value={job.description} components={portableTextComponents} />
                   ) : typeof job.description === 'string' && job.description.trim().length > 0 ? (
-                    <p className="whitespace-pre-line text-sm sm:text-base text-slate-700 font-subheading">{job.description}</p>
+                    <p className="whitespace-pre-line text-sm sm:text-base text-slate-700 font-body">{job.description}</p>
                   ) : (
-                    <div className="text-sm sm:text-base text-slate-700 space-y-3 font-subheading">
+                    <div className="text-sm sm:text-base text-slate-700 space-y-3 font-body">
                       <p>
                         <strong className="font-semibold text-slate-900">{job.company}</strong> is hiring for the role of{' '}
                         <strong className="font-semibold text-slate-900">{job.title}</strong> ({displayExperience}).

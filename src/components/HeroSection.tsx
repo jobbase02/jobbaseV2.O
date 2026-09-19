@@ -1,7 +1,23 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Search, MapPin, ThumbsUp, CheckCircle2, BadgeCheck, Users, ChevronDown } from 'lucide-react';
+import { Search, MapPin, ThumbsUp, CheckCircle2, BadgeCheck, Users, ChevronDown, ArrowUpRight } from 'lucide-react';
+
+function TelegramIcon({ className = 'w-4 h-4' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.196 1.006.128.83.942z" />
+    </svg>
+  );
+}
+
+function InstagramIcon({ className = 'w-4 h-4' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+    </svg>
+  );
+}
 
 interface HeroSectionProps {
   initialSearchQuery?: string;
@@ -185,8 +201,37 @@ export function HeroSection({
             </button>
           </form>
 
+          {/* Community Social Action Buttons (Telegram & Instagram) */}
+          <div className="mt-3.5 sm:mt-4 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 sm:px-2">
+            <a
+              href="https://t.me/jobbase02"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/btn inline-flex items-center gap-2 px-4 py-2 sm:py-2.5 rounded-full bg-white/95 hover:bg-white text-[#000000] border border-[#d0e5f7] hover:border-[#1D74C1] shadow-2xs hover:shadow-[0_4px_16px_-2px_rgba(29,116,193,0.15)] text-xs sm:text-sm font-semibold font-subheading transition-all duration-200 active:scale-95"
+            >
+              <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#e8f1fb] text-[#1D74C1] flex items-center justify-center shrink-0 group-hover/btn:scale-110 transition-transform">
+                <TelegramIcon className="w-3.5 h-3.5 fill-current" />
+              </span>
+              <span className="group-hover/btn:text-[#1D74C1] transition-colors font-heading font-semibold tracking-wider">Join Telegram</span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-[#1D74C1] group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-all" />
+            </a>
+
+            <a
+              href="https://t.me/jobbase02"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/btn inline-flex items-center gap-2 px-4 py-2 sm:py-2.5 rounded-full bg-white/95 hover:bg-white text-[#000000] border border-[#d0e5f7] hover:border-[#E1306C]/50 shadow-2xs hover:shadow-[0_4px_16px_-2px_rgba(225,48,108,0.15)] text-xs sm:text-sm font-semibold font-subheading transition-all duration-200 active:scale-95"
+            >
+              <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#fdf0f5] text-[#E1306C] flex items-center justify-center shrink-0 group-hover/btn:scale-110 transition-transform">
+                <InstagramIcon className="w-3.5 h-3.5 fill-current" />
+              </span>
+              <span className="group-hover/btn:text-[#E1306C] transition-colors font-heading font-semibold tracking-wider">Follow us on Instagram</span>
+              <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover/btn:text-[#E1306C] group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-all" />
+            </a>
+          </div>
+
           {/* -------------------- MOBILE COLLAGE PREVIEW (Visible only on < lg screens) -------------------- */}
-          <div className="mt-2 pt-4 border-t border-slate-100 flex lg:hidden flex-col items-center justify-center gap-3">
+          <div className="mt-3 sm:mt-4 pt-4 border-t border-slate-100 flex lg:hidden flex-col items-center justify-center gap-3">
             <div className="flex items-center justify-center -space-x-2.5 overflow-hidden">
               <img src="/hero/hero-1.jpg" alt="" className="inline-block h-9 w-9 rounded-full ring-2 ring-white object-cover shadow-xs" />
               <img src="/hero/hero-2.jpg" alt="" className="inline-block h-9 w-9 rounded-full ring-2 ring-white object-cover shadow-xs" />

@@ -96,19 +96,19 @@ export function MoreAboutSection() {
               <InfiniteSlider gap={36} duration={42} durationOnHover={60}>
                 <div className="shrink-0 flex items-center gap-2">
                   <img src="https://cdn.simpleicons.org/spotify/1DB954" alt="Spotify" className="w-5 h-5 object-contain" />
-                  <span className="font-subheading text-[#1DB954]">Spotify</span>
+                  <span className="font-body text-[#1DB954]">Spotify</span>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">
                   <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/960px-Microsoft_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail" alt="Microsoft" className="w-5 h-5 object-contain" />
-                  <span className="font-subheading text-[#00A4EF]">Microsoft</span>
+                  <span className="font-body text-[#00A4EF]">Microsoft</span>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">
                   <img src="https://cdn.simpleicons.org/mcafee/C01818" alt="McAfee" className="w-5 h-5 object-contain" />
-                  <span className="font-subheading text-[#C01818]">McAfee</span>
+                  <span className="font-body text-[#C01818]">McAfee</span>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">
                   <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/3840px-Google_%22G%22_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail" alt="Google" className="w-5 h-5 object-contain" />
-                  <span className="font-subheading font-bold">
+                  <span className="font-body font-bold">
                     <span className="text-[#4285F4]">G</span>
                     <span className="text-[#EA4335]">o</span>
                     <span className="text-[#FBBC05]">o</span>
@@ -119,39 +119,39 @@ export function MoreAboutSection() {
                 </div>
                 <div className="shrink-0 flex items-center gap-2">
                   <img src="https://thumbs.dreamstime.com/b/amazon-logo-white-background-montreal-canada-july-printed-paper-98221126.jpg" alt="Amazon" className="w-5 h-5 object-contain" />
-                  <span className="font-subheading text-black">Amazon</span>
+                  <span className="font-body text-black">Amazon</span>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">
                   <img src="https://images.seeklogo.com/logo-png/31/1/flipkart-logo-png_seeklogo-318406.png" alt="Flipkart" className="w-5 h-5 object-contain" />
-                  <span className="font-subheading text-[#007CD8]">Flipkart</span>
+                  <span className="font-body text-[#007CD8]">Flipkart</span>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">
                   <img src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/adobe-icon.png" alt="Adobe" className="w-5 h-5 object-contain" />
-                  <span className="font-subheading text-[#FF0000]">Adobe</span>
+                  <span className="font-body text-[#FF0000]">Adobe</span>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">
                   <img src="https://cdn.simpleicons.org/atlassian/0052CC" alt="Atlassian" className="w-5 h-5 object-contain" />
-                  <span className="font-subheading text-[#0052CC]">Atlassian</span>
+                  <span className="font-body text-[#0052CC]">Atlassian</span>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">
                   <img src="https://cdn.simpleicons.org/swiggy/FC8019" alt="Swiggy" className="w-5 h-5 object-contain" />
-                  <span className="font-subheading text-[#FC8019]">Swiggy</span>
+                  <span className="font-body text-[#FC8019]">Swiggy</span>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">
                   <img src="https://cdn.simpleicons.org/zomato/E23744" alt="Zomato" className="w-5 h-5 object-contain" />
-                  <span className="font-subheading text-[#E23744]">Zomato</span>
+                  <span className="font-body text-[#E23744]">Zomato</span>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">
                   <img src="https://cdn.simpleicons.org/razorpay/0066FF" alt="Razorpay" className="w-5 h-5 object-contain" />
-                  <span className="font-subheading text-[#0066FF]">Razorpay</span>
+                  <span className="font-body text-[#0066FF]">Razorpay</span>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">
                   <img src="https://cdn.simpleicons.org/phonepe/5F259F" alt="PhonePe" className="w-5 h-5 object-contain" />
-                  <span className="font-subheading text-[#5F259F]">PhonePe</span>
+                  <span className="font-body text-[#5F259F]">PhonePe</span>
                 </div>
                 <div className="shrink-0 flex items-center gap-2">
                   <img src="https://cdn.simpleicons.org/uber/000000" alt="Uber" className="w-5 h-5 object-contain" />
-                  <span className="font-subheading text-[#000000]">Uber</span>
+                  <span className="font-body text-[#000000]">Uber</span>
                 </div>
               </InfiniteSlider>
             </div>
